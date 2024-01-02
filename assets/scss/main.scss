@@ -1,0 +1,150 @@
+/* Design System */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap');
+
+/* Modules */
+/*@import 'styles.scss';*/
+
+
+/* Colors */
+$black: #000000;
+$white: #FFFFFF;
+$red-wine: #901C1C;
+$orange: #D3573C;
+$grey: #757575;
+$light-grey: #FAFAFA;
+
+/* Text configuration */
+$body-font: 'DM Sans';
+
+$regular-font-weight: 400;
+$bold-font-weight: 700;
+
+$title-font-size: 2.25rem; /*36px*/
+$body-font-size: 0.813rem; /*13px*/
+$body-text-font-size: 0.625rem; /*10px*/
+$price-font-size: 0.563rem; /*9px*/
+
+/* Photographer page */
+
+$name-font-size: 4rem; /*64px*/
+$city-font-size: 1.5rem; /*24px*/
+$slogan-font-size: 1.125rem; /*18px*/
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: $body-font;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  color: $red-wine;
+  font-size: $title-font-size;
+  font-weight: $regular-font-weight;
+}
+
+btn {
+  font-weight: $bold-font-weight;
+  font-size: 1.25rem;
+  color: $white;
+  background-color: $red-wine;
+  border-radius: 5px;
+  width: 10.6rem;
+  height: 4.375rem;
+}
+
+.header {
+  margin-left: 6rem;
+  margin-right: 6rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  &__home {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &__logo {
+      width: 15rem;
+      height: auto;
+    }
+  }
+}
+
+.hero {
+  margin-top: 6rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 6rem;
+  &__photograph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__link {
+      &__id {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: $orange;
+        font-size: $title-font-size;
+        font-weight: $regular-font-weight;
+
+        &__container {
+          overflow: hidden;
+          object-fit: cover;
+          border-radius: 50%;
+          width: 9rem;
+          height: 9rem;
+          position: relative;
+          &__img {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+            height: 150%;
+            object-fit: cover;
+          }
+          &__img2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+    &__text {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      &__city {
+        color: $red-wine;
+        font-size: $body-font-size;
+        font-weight: $regular-font-weight;
+      }
+      &__answer {
+        color: $black;
+        font-size: $body-text-font-size;
+        font-weight: $regular-font-weight;
+      }
+      &__price {
+        color: $grey;
+        font-size: $price-font-size;
+        font-weight: $regular-font-weight;
+      }
+    }
+  }
+}
+
