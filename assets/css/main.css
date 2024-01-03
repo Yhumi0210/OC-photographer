@@ -70,7 +70,12 @@ btn {
   flex-direction: column;
   align-items: center;
 }
-.hero__photograph__link__id {
+.hero__photograph__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero__photograph__link__name {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +83,7 @@ btn {
   font-size: 2.25rem;
   font-weight: 400;
 }
-.hero__photograph__link__id__container {
+.hero__photograph__link__container {
   overflow: hidden;
   object-fit: cover;
   border-radius: 50%;
@@ -86,22 +91,13 @@ btn {
   height: 9rem;
   position: relative;
 }
-.hero__photograph__link__id__container__img {
+.hero__photograph__link__container__img {
   position: absolute;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 150%;
   height: 150%;
-  object-fit: cover;
-}
-.hero__photograph__link__id__container__img2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
   object-fit: cover;
 }
 .hero__photograph__text {
@@ -114,7 +110,7 @@ btn {
   font-size: 0.813rem;
   font-weight: 400;
 }
-.hero__photograph__text__answer {
+.hero__photograph__text__tagline {
   color: #000000;
   font-size: 0.625rem;
   font-weight: 400;
