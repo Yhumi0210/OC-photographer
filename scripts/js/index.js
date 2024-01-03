@@ -10,8 +10,7 @@ async function fetchAndDisplayPhotographers() {
 
     const aLink = document.createElement('a')
     aLink.className += 'hero__photograph__link'
-    aLink.setAttribute("href", "#")
-    aLink.setAttribute("alt", "Portrait de John Doe")
+    aLink.href = `/photographer?id=${photographer.id}`
 
     const portraitDiv = document.createElement('div')
     portraitDiv.className += 'hero__photograph__link__container'
@@ -25,12 +24,12 @@ async function fetchAndDisplayPhotographers() {
     aLink.appendChild(portraitDiv)
     aLink.appendChild(nameTitle)
 
-    const textPhotograh = document.createElement('div')
-    textPhotograh.className += 'hero__photograph__text'
+    const textPhotograph = document.createElement('div')
+    textPhotograph.className += 'hero__photograph__text'
 
     const textCity = document.createElement('p')
     textCity.className += 'hero__photograph__text__city'
-    textCity.textContent = photographer.city
+    textCity.textContent = `${photographer.city}, ${photographer.country}`
 
     const textTag = document.createElement('p')
     textTag.className += 'hero__photograph__text__tagline'
@@ -40,10 +39,10 @@ async function fetchAndDisplayPhotographers() {
     textPrice.className += 'hero__photograph__text__price'
     textPrice.textContent = photographer.price + "€/jour"
 
-    section.appendChild(textPhotograh)
-    textPhotograh.appendChild(textCity)
-    textPhotograh.appendChild(textTag)
-    textPhotograh.appendChild(textPrice)
+    section.appendChild(textPhotograph)
+    textPhotograph.appendChild(textCity)
+    textPhotograph.appendChild(textTag)
+    textPhotograph.appendChild(textPrice)
 
     document.querySelector(".hero").appendChild(section)
   }

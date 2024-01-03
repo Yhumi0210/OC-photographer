@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap');
 
 /* Modules */
-/*@import 'styles.scss';*/
+@import 'photographer.scss';
 
 
 /* Colors */
@@ -12,6 +12,7 @@ $red-wine: #901C1C;
 $orange: #D3573C;
 $grey: #757575;
 $light-grey: #FAFAFA;
+$mid-grey: #525252;
 
 /* Text configuration */
 $body-font: 'DM Sans';
@@ -48,12 +49,13 @@ h1 {
   font-weight: $regular-font-weight;
 }
 
-btn {
+.btn {
   font-weight: $bold-font-weight;
   font-size: 1.25rem;
   color: $white;
   background-color: $red-wine;
   border-radius: 5px;
+  border: none;
   width: 10.6rem;
   height: 4.375rem;
 }
