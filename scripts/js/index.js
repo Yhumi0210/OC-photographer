@@ -49,27 +49,3 @@ async function fetchAndDisplayPhotographers() {
 }
 
 fetchAndDisplayPhotographers()
-
-// // Importez le fichier JSON contenant la liste des photographes
-// const response = fetch('./scripts/json/photographers.json')
-//
-// // Convertissez la réponse fetch en un objet itérable
-// const photographers = await response.json()
-//
-// // Créez un tableau d'éléments HTML pour afficher la liste des photographes
-// const photographersList = document.createElement('ul')
-//
-// // Parcours la liste des photographes
-// for (const photographer of photographers) {
-//   // Créez un élément HTML pour chaque photographe
-//   const photographerItem = document.createElement('li')
-//
-//   // Ajoutez le nom du photographe à l'élément HTML
-//   photographerItem.textContent = photographer.name
-//
-//   // Ajoutez l'élément HTML à la liste des photographes
-//   photographersList.appendChild(photographerItem)
-// }
-//
-// // Ajoutez la liste des photographes à la page HTML
-// document.body.appendChild(photographersList)
