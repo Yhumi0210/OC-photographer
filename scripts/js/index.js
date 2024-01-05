@@ -10,7 +10,7 @@ async function fetchAndDisplayPhotographers() {
 
     const aLink = document.createElement('a')
     aLink.className += 'hero__photograph__link'
-    aLink.href = `/photographer?id=${photographer.id}`
+    aLink.href = `photographer.html?id=${photographer.id}`
 
     const portraitDiv = document.createElement('div')
     portraitDiv.className += 'hero__photograph__link__container'
