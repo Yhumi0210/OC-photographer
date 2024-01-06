@@ -6,6 +6,8 @@ const urlParams = new URLSearchParams(paramSearch)
 // le + converti le string en number
 const photographId = +urlParams.get('id')
 // const photographId = parseInt(urlParams.get('id'))
+console.log(photographId)
+// Vérifiez si le paramètre `id` de la requête URL est valide
 
 let myPhotographer = null
 let myMedia = null
@@ -23,7 +25,7 @@ async function getPhotographer() {
   })
   console.log("1 =" + photographId, " 2 =" + myPhotographer)
 
-  myMedia = media.map((mediaItem) => {
+  myMedia = data.media.map((mediaItem) => {
     return Object.assign(mediaItem, {
       photographerId: mediaItem.id,
     })
@@ -50,9 +52,10 @@ async function showPhotographer(photographer) {
   `
 }
 
-async function showMedia(media) {
-  for (const photo of media) {
-    if (photo.photographerId === myPhotographer.photographerId)    {
+async function showMedia(mediaItem) {
+  for (const photo of mediaItem) {
+    // if (photo.photographerId === myPhotographer.id) {
+      console.log("Media Matched!")  // Ajoutez cette ligne
 
       const sectionGallery = document.createElement('section')
       sectionGallery.className += 'gallery__photo'
@@ -92,7 +95,7 @@ async function showMedia(media) {
 
       document.querySelector(".gallery").appendChild(sectionGallery)
     }
-  }
+  //}
 }
 // async function showCounter(mediaItem, photographer) {
 //   document.querySelector('.counter').innerHTML = `
