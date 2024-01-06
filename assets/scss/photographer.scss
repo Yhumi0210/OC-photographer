@@ -114,6 +114,7 @@ $slogan-font-size: 1.125rem; /*18px*/
         &__like {
           display: flex;
           flex-direction: row;
+          align-items: center;
           &__number {
             font-size: $city-font-size;
             font-weight: $regular-font-weight;
@@ -121,9 +122,8 @@ $slogan-font-size: 1.125rem; /*18px*/
             margin-right: 0.5rem;
           }
           &__heart {
-            width: 2rem;
-            height: 2rem;
-            color: $red-wine;
+            width: 1.2rem;
+            height: 1.2rem;
           }
         }
       }

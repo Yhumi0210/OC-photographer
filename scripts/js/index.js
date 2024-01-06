@@ -3,6 +3,7 @@ async function fetchAndDisplayPhotographers() {
   const data = await response.json()
 
   const photographers = data.photographers
+  const media = data.media
 
   for (const photographer of photographers) {
     const section = document.createElement('section')
