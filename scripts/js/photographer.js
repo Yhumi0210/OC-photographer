@@ -9,8 +9,8 @@ const photographId = +urlParams.get('id')
 console.log(photographId)
 // Vérifiez si le paramètre `id` de la requête URL est valide
 
-let myPhotographer = null
-let myMedia = null
+// let myPhotographer = null
+// let myMedia = null
 
 async function getPhotographer() {
 
@@ -20,12 +20,12 @@ async function getPhotographer() {
   const media = data.media
 
   // si on cherche un seul objet correspondant sinon utiliser filter pour plusieurs réponses possibles
-  myPhotographer = data.photographers.find((photographer) => {
+  let myPhotographer = data.photographers.find((photographer) => {
     return photographer.id === photographId
   })
   console.log("1 =" + photographId, " 2 =" + myPhotographer)
 
-  myMedia = data.media.map((mediaItem) => {
+  let myMedia = data.media.map((mediaItem) => {
     return Object.assign(mediaItem, {
       photographerId: mediaItem.photographerId,
     })
@@ -33,11 +33,11 @@ async function getPhotographer() {
   console.log(" 3 =" + myMedia)
 
   // créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
-  await showPhotographer(myPhotographer)
+  await showPhotographer()
   await showMedia(myMedia)
 }
 
-async function showPhotographer(photographer) {
+async function showPhotographer() {
 
   document.querySelector('.photographer').innerHTML = `
     <section class="photographer__info">
@@ -52,10 +52,8 @@ async function showPhotographer(photographer) {
   `
 }
 
-async function showMedia(mediaItem) {
-  for (const photo of mediaItem) {
-	console.log(photo.photographerId+" = "+myPhotographer.id)
-    if (photo.photographerId === myPhotographer.id) {
+async function showMedia(lesMedias) {
+  for (const photo of myMedia) {
       console.log("Media Matched!")  // Ajoutez cette ligne
 
       const sectionGallery = document.createElement('section')
@@ -95,7 +93,6 @@ async function showMedia(mediaItem) {
       divGalleryLike.appendChild(imgLikeGallery)
 
       document.querySelector(".gallery").appendChild(sectionGallery)
-    }
   }
 }
 // async function showCounter(mediaItem, photographer) {
