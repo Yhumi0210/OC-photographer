@@ -25,7 +25,7 @@ async function getPhotographer() {
   })
   console.log("1 =" + photographId, " 2 =" + myPhotographer)
 
-  myMedia = data.media.map((mediaItem) => {
+  let myMedia = data.media.map((mediaItem) => {
     return Object.assign(mediaItem, {
       photographerId: mediaItem.photographerId,
     })
@@ -52,8 +52,10 @@ async function showPhotographer(photographer) {
   `
 }
 
+
 async function showMedia(medias) {
   for (const photo of medias) {
+
       console.log("Media Matched!")  // Ajoutez cette ligne
 
       const sectionGallery = document.createElement('section')
@@ -109,9 +111,8 @@ async function showMedia(medias) {
       divGalleryLike
       .appendChild(imgLikeGallery)
 
-      document
-      .querySelector(".gallery").appendChild(sectionGallery)
-    }
+      document.querySelector(".gallery").appendChild(sectionGallery)
+  }
 }
 // async function showCounter(mediaItem, photographer) {
 //   document.querySelector('.counter').innerHTML = `
