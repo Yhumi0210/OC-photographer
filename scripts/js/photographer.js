@@ -33,11 +33,11 @@ async function getPhotographer() {
   console.log(" 3 =" + myMedia)
 
   // créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
-  await showPhotographer()
+  await showPhotographer(myPhotographer)
   await showMedia(myMedia)
 }
 
-async function showPhotographer() {
+async function showPhotographer(photographer) {
 
   document.querySelector('.photographer').innerHTML = `
     <section class="photographer__info">
