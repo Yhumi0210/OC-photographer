@@ -9,8 +9,8 @@ const photographId = +urlParams.get('id')
 console.log(photographId)
 // Vérifiez si le paramètre `id` de la requête URL est valide
 
-let myPhotographer = null
-let myMedia = null
+// let myPhotographer = null
+// let myMedia = null
 
 async function getPhotographer() {
 
@@ -20,14 +20,14 @@ async function getPhotographer() {
   const media = data.media
 
   // si on cherche un seul objet correspondant sinon utiliser filter pour plusieurs réponses possibles
-  myPhotographer = data.photographers.find((photographer) => {
+  let myPhotographer = data.photographers.find((photographer) => {
     return photographer.id === photographId
   })
   console.log("1 =" + photographId, " 2 =" + myPhotographer)
 
   myMedia = data.media.map((mediaItem) => {
     return Object.assign(mediaItem, {
-      photographerId: mediaItem.id,
+      photographerId: mediaItem.photographerId,
     })
   })
   console.log(" 3 =" + myMedia)
@@ -52,50 +52,66 @@ async function showPhotographer(photographer) {
   `
 }
 
-async function showMedia(mediaItem) {
-  for (const photo of mediaItem) {
-    // if (photo.photographerId === myPhotographer.id) {
+async function showMedia(medias) {
+  for (const photo of medias) {
       console.log("Media Matched!")  // Ajoutez cette ligne
 
       const sectionGallery = document.createElement('section')
-      sectionGallery.className += 'gallery__photo'
+      sectionGallery
+      .className += 'gallery__photo'
 
       const artGallery = document.createElement('article')
-      artGallery.className += 'gallery__photo__card'
+      artGallery
+      .className += 'gallery__photo__card'
 
       const divGalleryContain = document.createElement('div')
-      divGalleryContain.className += 'gallery__photo__card__container'
-      divGalleryContain.innerHTML = `<img src="${photo.image}" class="gallery__photo__card__container__img" alt="${photo.title}">`
+      divGalleryContain
+      .className += 'gallery__photo__card__container'
+      divGalleryContain
+      .innerHTML = `<img src="${photo.image}" class="gallery__photo__card__container__img" alt="${photo.title}">`
 
       const divGalleryInfo = document.createElement('div')
-      divGalleryInfo.className += 'gallery__photo__card__info'
+      divGalleryInfo
+      .className += 'gallery__photo__card__info'
 
-      sectionGallery.appendChild(artGallery)
-      artGallery.appendChild(divGalleryContain)
-      artGallery.appendChild(divGalleryInfo)
+      sectionGallery
+      .appendChild(artGallery)
+      artGallery
+      .appendChild(divGalleryContain)
+      artGallery
+      .appendChild(divGalleryInfo)
 
       const pGalleryName = document.createElement('p')
-      pGalleryName.className += 'gallery__photo__card__info__name'
+      pGalleryName
+      .className += 'gallery__photo__card__info__name'
 
       const divGalleryLike = document.createElement('div')
-      divGalleryLike.className += 'gallery__photo__card__info__like'
+      divGalleryLike
+      .className += 'gallery__photo__card__info__like'
 
       const pGalleryNumber = document.createElement('p')
-      pGalleryNumber.className += 'gallery__photo__card__info__like__number'
+      pGalleryNumber
+      .className += 'gallery__photo__card__info__like__number'
 
       const imgLikeGallery = document.createElement('img')
-      imgLikeGallery.className += 'gallery__photo__card__info__like__heart'
-      imgLikeGallery.src = './img/heartred.png'
+      imgLikeGallery
+      .className += 'gallery__photo__card__info__like__heart'
+      imgLikeGallery
+      .src = './img/heartred.png'
 
 
-      divGalleryInfo.appendChild(pGalleryName)
-      divGalleryInfo.appendChild(divGalleryLike)
-      divGalleryLike.appendChild(pGalleryNumber)
-      divGalleryLike.appendChild(imgLikeGallery)
+      divGalleryInfo
+      .appendChild(pGalleryName)
+      divGalleryInfo
+      .appendChild(divGalleryLike)
+      divGalleryLike
+      .appendChild(pGalleryNumber)
+      divGalleryLike
+      .appendChild(imgLikeGallery)
 
-      document.querySelector(".gallery").appendChild(sectionGallery)
+      document
+      .querySelector(".gallery").appendChild(sectionGallery)
     }
-  //}
 }
 // async function showCounter(mediaItem, photographer) {
 //   document.querySelector('.counter').innerHTML = `
