@@ -54,7 +54,8 @@ async function showPhotographer(photographer) {
 
 async function showMedia(mediaItem) {
   for (const photo of mediaItem) {
-    // if (photo.photographerId === myPhotographer.id) {
+	console.log(photo.photographerId+" = "+myPhotographer.id)
+    if (photo.photographerId === myPhotographer.id) {
       console.log("Media Matched!")  // Ajoutez cette ligne
 
       const sectionGallery = document.createElement('section')
@@ -95,7 +96,7 @@ async function showMedia(mediaItem) {
 
       document.querySelector(".gallery").appendChild(sectionGallery)
     }
-  //}
+  }
 }
 // async function showCounter(mediaItem, photographer) {
 //   document.querySelector('.counter').innerHTML = `
