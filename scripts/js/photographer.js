@@ -27,7 +27,7 @@ async function getPhotographer() {
 
   myMedia = data.media.map((mediaItem) => {
     return Object.assign(mediaItem, {
-      photographerId: mediaItem.id,
+      photographerId: mediaItem.photographerId,
     })
   })
   console.log(" 3 =" + myMedia)
