@@ -41,7 +41,7 @@ async function showPhotographer(photographer) {
 
   document.querySelector('.photographer').innerHTML = `
     <section class="photographer__info">
-    <h1 class="photographer__info__name">${photographer.name}</h1>
+    <h1 class="photographer__info__name">`+photographer.name`+</h1>
     <p class="photographer__info__city">${photographer.city}, ${photographer.country}</p>
     <p class="photographer__info__tagline">${photographer.tagline}</p>
     </section>
@@ -53,7 +53,7 @@ async function showPhotographer(photographer) {
 }
 
 async function showMedia(lesMedias) {
-  for (const photo of myMedia) {
+  for (const photo of lesMedias) {
       console.log("Media Matched!")  // Ajoutez cette ligne
 
       const sectionGallery = document.createElement('section')
