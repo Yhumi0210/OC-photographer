@@ -139,7 +139,22 @@
   height: 1.5rem;
   margin-left: 0.5rem;
 }
-.counter__price {
+
+.price {
+  position: absolute;
+  right: -14rem;
+  bottom: -27rem;
+  padding: 1rem 2rem 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 24rem;
+  border-radius: 5px 5px 0 0;
+}
+.price__day {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-size: 1.5rem;
   font-weight: 400;
 }

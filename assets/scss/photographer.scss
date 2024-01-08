@@ -141,23 +141,42 @@ $slogan-font-size: 1.125rem; /*18px*/
   justify-content: space-between;
   width: 24rem;
   border-radius: 5px 5px 0 0;
-    &__text {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      &__number {
-        font-size: $city-font-size;
-        font-weight: $regular-font-weight;
-      }
-      &__heart {
-        width: 1.5rem;
-        height: 1.5rem;
-        margin-left: 0.5rem;
-      }
-    }
-    &__price {
+
+  &__text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &__number {
       font-size: $city-font-size;
       font-weight: $regular-font-weight;
     }
+
+    &__heart {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-left: 0.5rem;
+    }
   }
+}
+.price {
+  position: absolute;
+  right: -14rem;
+  bottom: -27rem;
+  padding: 1rem 2rem 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 24rem;
+  border-radius: 5px 5px 0 0;
+
+  &__day {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: $city-font-size;
+    font-weight: $regular-font-weight;
+    }
+}
+
 
