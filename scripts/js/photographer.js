@@ -70,9 +70,29 @@ async function showMedia(medias) {
       const artGallery = document.createElement('article')
       artGallery.className += 'gallery__photo__card'
 
-      const divGalleryContain = document.createElement('div')
-      divGalleryContain.className += 'gallery__photo__card__container'
+    const divGalleryContain = document.createElement('div');
+    divGalleryContain.className += 'gallery__photo__card__container';
+
+  // Vérifiez si le type de média est une vidéo
+    if (photo.type === "video") {
+      console.log("la vidéo est lu");
+
+  // Créez un élément vidéo et définissez sa source
+      const videoElement = document.createElement('video');
+      videoElement.src = photo.video;
+      videoElement.className += 'gallery__photo__card__container__img';
+
+  // Définissez les attributs de la vidéo
+      videoElement.controls = true;
+      videoElement.autoplay = true;
+      videoElement.alt = photo.title;
+
+  // Ajoutez l'élément vidéo à la div
+      divGalleryContain.appendChild(videoElement)
+    } else {
+  // Ajoutez un élément image si le type de média n'est pas une vidéo
       divGalleryContain.innerHTML = `<img src="${photo.image}" class="gallery__photo__card__container__img" alt="${photo.title}">`
+    }
 
       const divGalleryInfo = document.createElement('div')
       divGalleryInfo.className += 'gallery__photo__card__info'

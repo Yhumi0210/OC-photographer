@@ -130,53 +130,42 @@ $slogan-font-size: 1.125rem; /*18px*/
     }
   }
 }
-.counter {
-  position: absolute;
+
+.like__counter {
+  position: fixed;
   right: 2rem;
-  bottom: -27rem;
-  padding: 1rem 2rem 1rem 2rem;
-  background-color: $pink;
+  bottom: 0;
+  float: left;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 24rem;
+  background-color: $pink;
+  padding: 1rem 2rem 1rem 2rem;
   border-radius: 5px 5px 0 0;
-
-  &__text {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &__number {
+  .counter {
+    &__text {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      &__number {
+        font-size: $city-font-size;
+        font-weight: $regular-font-weight;
+      }
+      &__heart {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+  .price {
+    &__day {
+      align-items: center;
       font-size: $city-font-size;
       font-weight: $regular-font-weight;
     }
-
-    &__heart {
-      width: 1.5rem;
-      height: 1.5rem;
-      margin-left: 0.5rem;
-    }
   }
-}
-.price {
-  position: absolute;
-  right: -14rem;
-  bottom: -27rem;
-  padding: 1rem 2rem 1rem 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 24rem;
-  border-radius: 5px 5px 0 0;
-
-  &__day {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: $city-font-size;
-    font-weight: $regular-font-weight;
-    }
 }
 
 

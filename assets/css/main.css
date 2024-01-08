@@ -113,47 +113,34 @@
   height: 1.2rem;
 }
 
-.counter {
-  position: absolute;
+.like__counter {
+  position: fixed;
   right: 2rem;
-  bottom: -27rem;
-  padding: 1rem 2rem 1rem 2rem;
-  background-color: #DB8876;
+  bottom: 0;
+  float: left;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 24rem;
+  background-color: #DB8876;
+  padding: 1rem 2rem 1rem 2rem;
   border-radius: 5px 5px 0 0;
 }
-.counter__text {
+.like__counter .counter__text {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.counter__text__number {
+.like__counter .counter__text__number {
   font-size: 1.5rem;
   font-weight: 400;
 }
-.counter__text__heart {
-  width: 1.5rem;
-  height: 1.5rem;
+.like__counter .counter__text__heart {
+  width: 1.2rem;
+  height: 1.2rem;
   margin-left: 0.5rem;
 }
-
-.price {
-  position: absolute;
-  right: -14rem;
-  bottom: -27rem;
-  padding: 1rem 2rem 1rem 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 24rem;
-  border-radius: 5px 5px 0 0;
-}
-.price__day {
-  display: flex;
-  flex-direction: row;
+.like__counter .price__day {
   align-items: center;
   font-size: 1.5rem;
   font-weight: 400;
