@@ -121,9 +121,15 @@ $slogan-font-size: 1.125rem; /*18px*/
             color: $red-wine;
             margin-right: 0.5rem;
           }
-          &__heart {
-            width: 1.2rem;
-            height: 1.2rem;
+          &__button {
+            display: flex;
+            align-items: center;
+            border: 0;
+            background: transparent;
+            &__heart {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
           }
         }
       }

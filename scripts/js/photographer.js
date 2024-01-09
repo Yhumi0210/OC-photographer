@@ -41,6 +41,7 @@ async function getPhotographer() {
   await showMedia(myMedia)
   await showCounter(somme)
   await showPrice(myPrice)
+  await addLikes()
 }
 
 async function showPhotographer(photographer) {
@@ -57,7 +58,6 @@ async function showPhotographer(photographer) {
   </div>
   `
 }
-
 
 async function showMedia(medias) {
   for (const photo of medias) {
@@ -111,22 +111,26 @@ async function showMedia(medias) {
       const pGalleryNumber = document.createElement('p')
       pGalleryNumber.className += 'gallery__photo__card__info__like__number'
       pGalleryNumber.textContent = `${photo.likes}`
+      pGalleryNumber.id += 'likeCount'
+
+      const divImgLikeGallery = document.createElement('button')
+      divImgLikeGallery.className = 'gallery__photo__card__info__like__button'
+      divImgLikeGallery.type = 'button'
+      divImgLikeGallery.id += 'likeButton'
 
       const imgLikeGallery = document.createElement('img')
-      imgLikeGallery.className += 'gallery__photo__card__info__like__heart'
+      imgLikeGallery.className += 'gallery__photo__card__info__like__button__heart'
       imgLikeGallery.src = './img/heartred.png'
-
 
       divGalleryInfo.appendChild(pGalleryName)
       divGalleryInfo.appendChild(divGalleryLike)
       divGalleryLike.appendChild(pGalleryNumber)
-      divGalleryLike.appendChild(imgLikeGallery)
+      divGalleryLike.appendChild(divImgLikeGallery)
+      divImgLikeGallery.appendChild(imgLikeGallery)
 
       document.querySelector('.gallery').appendChild(sectionGallery)
     }
 }
-
-
 
 async function showCounter(countLikes) {
   const somme = countLikes
@@ -138,6 +142,30 @@ async function showCounter(countLikes) {
   `
 }
 
+async function addLikes() {
+  document.addEventListener('DOMContentLoaded', () => {
+    const likeButton = document.getElementById('likeButton')
+    const likeCountElement = document.getElementById('likeCount')
+
+    let likeCount = 0
+
+    likeButton.addEventListener('click', () => {
+      // Ajouter ou retirer un like en fonction de l'état actuel
+      if (likeButton.classList.contains('liked')) {
+        likeCount--
+      } else {
+        likeCount++
+      }
+
+      // Mettre à jour le texte du compteur de likes
+      likeCountElement.textContent = likeCount + (likeCount === 1 ? ' Like' : ' Likes')
+
+      // Basculer la classe liked pour changer l'apparence du bouton
+      likeButton.classList.toggle('liked')
+    })
+  })
+}
+
 async function showPrice(price) {
   const myPrice = price
   document.querySelector('.price').innerHTML = `
@@ -146,6 +174,3 @@ async function showPrice(price) {
 }
 
 getPhotographer()
-
-// Afficher les médias du photographe demandé
-

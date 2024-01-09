@@ -108,7 +108,13 @@
   color: #901C1C;
   margin-right: 0.5rem;
 }
-.gallery__photo__card__info__like__heart {
+.gallery__photo__card__info__like__button {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+}
+.gallery__photo__card__info__like__button__heart {
   width: 1.2rem;
   height: 1.2rem;
 }
