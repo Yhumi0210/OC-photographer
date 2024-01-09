@@ -34,14 +34,12 @@ async function getPhotographer() {
   let myPrice = data.photographers.find((price) => {
     return price.id === photographId
   })
-  console.log(myPrice)
 
   // créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
   await showPhotographer(myPhotographer)
   await showMedia(myMedia)
   await showCounter(somme)
   await showPrice(myPrice)
-  await addLikes()
 }
 
 async function showPhotographer(photographer) {
@@ -52,7 +50,7 @@ async function showPhotographer(photographer) {
     <p class="photographer__info__city">${photographer.city}, ${photographer.country}</p>
     <p class="photographer__info__tagline">${photographer.tagline}</p>
     </section>
-    <button class="btn" type="button">Contactez-moi</button>
+    <button class="btn" type="button" onclick="" aria-label="contactez le photographe">Contactez-moi</button>
   <div class="hero__photograph__link__container">
     <img src="${photographer.portrait}" class="hero__photograph__link__container__img" alt="${photographer.name}">
   </div>
@@ -75,7 +73,7 @@ async function showMedia(medias) {
 
   // Vérifiez si le type de média est une vidéo
     if (photo.type === "video") {
-      console.log("la vidéo est lu");
+      console.log("la vidéo est lu")
 
   // Créez un élément vidéo et définissez sa source
       const videoElement = document.createElement('video');
@@ -111,12 +109,12 @@ async function showMedia(medias) {
       const pGalleryNumber = document.createElement('p')
       pGalleryNumber.className += 'gallery__photo__card__info__like__number'
       pGalleryNumber.textContent = `${photo.likes}`
-      pGalleryNumber.id += 'likeCount'
 
       const divImgLikeGallery = document.createElement('button')
-      divImgLikeGallery.className = 'gallery__photo__card__info__like__button'
+      divImgLikeGallery.className += 'gallery__photo__card__info__like__button'
       divImgLikeGallery.type = 'button'
-      divImgLikeGallery.id += 'likeButton'
+      divImgLikeGallery.id += 'btnLike'
+      divImgLikeGallery.addEventListener('click', toggleNumber)
 
       const imgLikeGallery = document.createElement('img')
       imgLikeGallery.className += 'gallery__photo__card__info__like__button__heart'
@@ -142,29 +140,25 @@ async function showCounter(countLikes) {
   `
 }
 
-async function addLikes() {
-  document.addEventListener('DOMContentLoaded', () => {
-    const likeButton = document.getElementById('likeButton')
-    const likeCountElement = document.getElementById('likeCount')
+let currentSomme = 0
 
-    let likeCount = 0
+// Fonction pour ajouter ou enlever 1
+async function toggleNumber() {
+  const numberContainer = document.querySelector('.gallery__photo__card__info__like')
 
-    likeButton.addEventListener('click', () => {
-      // Ajouter ou retirer un like en fonction de l'état actuel
-      if (likeButton.classList.contains('liked')) {
-        likeCount--
-      } else {
-        likeCount++
-      }
+  // Vérifier si le point est ajouté ou retiré
+  if (currentSomme === 0) {
+    // Si le nombre est 0, ajouter 1
+    currentSomme += 1
+  } else {
+    // Sinon, retirer 1
+    currentSomme -= 1
+  }
 
-      // Mettre à jour le texte du compteur de likes
-      likeCountElement.textContent = likeCount + (likeCount === 1 ? ' Like' : ' Likes')
-
-      // Basculer la classe liked pour changer l'apparence du bouton
-      likeButton.classList.toggle('liked')
-    })
-  })
+  // Mettre à jour le contenu avec la nouvelle valeur du nombre
+  numberContainer.textContent = currentSomme.toFixed(0) // Limite le nombre de décimales à 1
 }
+console.log(currentSomme)
 
 async function showPrice(price) {
   const myPrice = price
@@ -174,3 +168,7 @@ async function showPrice(price) {
 }
 
 getPhotographer()
+
+// si je fais en sorte que le bouton soit cliquable
+// qu'au click un like soit ajouté et au reclick il soit enlevé
+// au compteur déjà existant
