@@ -6,6 +6,7 @@ const urlParams = new URLSearchParams(paramSearch)
 // le + converti le string en number
 const photographId = +urlParams.get('id')
 
+let somme = 0
 async function getPhotographer() {
 
   const response = await fetch(`./scripts/json/photographers.json`)
@@ -23,19 +24,22 @@ async function getPhotographer() {
     return mediaItem.photographerId === photographId
   })
 
-  let somme = 0
 
-  data.media.forEach((objet) => {
-    if (objet.photographerId === photographId) {
-      somme += objet.likes
-    }
-  })
+    // récupération du nombre de like total ( n'affiche pas )
+    data.media.forEach((objet) => {
+        if (objet.photographerId === photographId) {
+            somme += objet.likes
+            return somme
+        }
+    })
+    // esseyer de crée un fonction a l'intérieur d'une fonction fléché, possible ??
 
   let myPrice = data.photographers.find((price) => {
     return price.id === photographId
   })
 
   // créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
+  // appel des fonctions
   await showPhotographer(myPhotographer)
   await showMedia(myMedia)
   await showCounter(somme)
@@ -97,25 +101,40 @@ async function showMedia(medias) {
       const divGalleryLike = document.createElement('div')
       divGalleryLike.className += 'gallery__photo__card__info__like'
 
-      const pGalleryNumber = document.createElement('p')
+      let pGalleryNumber = document.createElement('p')
       pGalleryNumber.className += 'gallery__photo__card__info__like__number'
       pGalleryNumber.textContent = `${photo.likes}`
+      let canLike = true
 
-      const divImgLikeGallery = document.createElement('button')
-      divImgLikeGallery.className += 'gallery__photo__card__info__like__button'
-      divImgLikeGallery.type = 'button'
-      divImgLikeGallery.id += 'btnLike'
-      divImgLikeGallery.addEventListener('click', toggleNumber)
+      const iGalleryHeart = document.createElement('i')
+      iGalleryHeart.className += 'gallery__photo__card__info__like__heart fa-regular fa-heart'
 
-      const imgLikeGallery = document.createElement('img')
-      imgLikeGallery.className += 'gallery__photo__card__info__like__button__heart'
-      imgLikeGallery.src = './img/heartred.png'
+    iGalleryHeart.addEventListener('click', () => {
+
+        if (canLike) {
+          pGalleryNumber.textContent++
+            somme++
+            iGalleryHeart.className += 'gallery__photo__card__info__like__heart fa-solid fa-heart'
+
+            // appel de l'UPDATE
+            showCounter(somme)
+            canLike = false
+      } else {
+          pGalleryNumber.textContent--
+            somme--
+            iGalleryHeart.classList.remove('fa-solid')
+            iGalleryHeart.classList.add('fa-regular')
+
+            // appel de l'UPDATE
+            showCounter(somme)
+            canLike = true
+      }
+    })
 
       divGalleryInfo.appendChild(pGalleryName)
       divGalleryInfo.appendChild(divGalleryLike)
       divGalleryLike.appendChild(pGalleryNumber)
-      divGalleryLike.appendChild(divImgLikeGallery)
-      divImgLikeGallery.appendChild(imgLikeGallery)
+      divGalleryLike.appendChild(iGalleryHeart)
 
 
       document.querySelector('.gallery').appendChild(sectionGallery)
@@ -123,34 +142,13 @@ async function showMedia(medias) {
 }
 
 async function showCounter(countLikes) {
-  const somme = countLikes
   document.querySelector('.counter').innerHTML = `
   <div class="counter__text">
     <p class="counter__text__number">${somme}</p>
-    <img src="./img/heartblack.png" class="counter__text__heart" alt="Like">
+    <i class="counter__text__heart fa-solid fa-heart"></i>
   </div>
   `
 }
-
-let currentSomme = 0
-
-// Fonction pour ajouter ou enlever 1
-async function toggleNumber() {
-  const numberContainer = document.querySelector('.gallery__photo__card__info__like')
-
-  // Vérifier si le point est ajouté ou retiré
-  if (currentSomme === 0) {
-    // Si le nombre est 0, ajouter 1
-    currentSomme += 1
-  } else {
-    // Sinon, retirer 1
-    currentSomme -= 1
-  }
-
-  // Mettre à jour le contenu avec la nouvelle valeur du nombre
-  numberContainer.textContent = currentSomme.toFixed(0) // Limite le nombre de décimales à 1
-}
-console.log(currentSomme)
 
 async function showPrice(price) {
   const myPrice = price

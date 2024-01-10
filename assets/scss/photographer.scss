@@ -121,21 +121,16 @@ $slogan-font-size: 1.125rem; /*18px*/
             color: $red-wine;
             margin-right: 0.5rem;
           }
-          &__button {
-            display: flex;
-            align-items: center;
-            border: 0;
-            background: transparent;
-            &__heart {
-              width: 1.2rem;
-              height: 1.2rem;
-            }
+          &__heart {
+            color: $red-wine;
+            font-size: 1.3rem;
+          }
           }
         }
       }
     }
   }
-}
+
 
 .like__counter {
   position: fixed;
@@ -159,8 +154,8 @@ $slogan-font-size: 1.125rem; /*18px*/
         font-weight: $regular-font-weight;
       }
       &__heart {
-        width: 1.2rem;
-        height: 1.2rem;
+        color: $black;
+        font-size: 1.3rem;
         margin-left: 0.5rem;
       }
     }
