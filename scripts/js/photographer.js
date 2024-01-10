@@ -6,6 +6,7 @@ const photographId = +urlParams.get('id')
 
 // variables globales
 let somme = 0
+let modalForm = document.getElementById('contactForm')
 
 async function getPhotographer() {
 
@@ -34,6 +35,34 @@ async function getPhotographer() {
     return price.id === photographId
   })
 
+  // créer les fonctions de tri
+  document.getElementById('sortSelect').addEventListener('change', (event) => {
+    filterMedia(event.target.value)
+  })
+  // Fonction de tri des médias
+  // Fonction de tri des médias
+  async function filterMedia(criteria) {
+    let sortedMedia
+
+    switch (criteria) {
+      case 'byTitle':
+        sortedMedia = myMedia.slice().sort((a, b) => a.title.localeCompare(b.title))
+        break
+      case 'byPopularity':
+        sortedMedia = myMedia.slice().sort((a, b) => b.likes - a.likes)
+        break
+      case 'byDate':
+        sortedMedia = myMedia.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+        break
+      default:
+        // Par défaut, utilisez le tri par titre
+        sortedMedia = myMedia.slice().sort((a, b) => a.title.localeCompare(b.title))
+    }
+
+    // Affichez les médias triés
+    showMedia(sortedMedia)
+  }
+
   // créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
   // appel de toutes les fonctions pour afficher la page correctement
   // fonction qui ajoute au DOM toutes les infos du photographe
@@ -44,6 +73,8 @@ async function getPhotographer() {
   await showCounter(somme)
   // fonction qui ajoute au DOM le tarif journalier du photographe en bas à droite de la page
   await showPrice(myPrice)
+  // fonction qui filtre les médias
+  await filterMedia('byPopularity')
 }
 
 // fonction qui ajoute au DOM toutes les infos du photographe
@@ -54,7 +85,7 @@ async function showPhotographer(photographer) {
         <p class="photographer__info__city">${photographer.city}, ${photographer.country}</p>
         <p class="photographer__info__tagline">${photographer.tagline}</p>
     </section>
-    <button class="btn" type="button" onclick="" aria-label="contactez le photographe">Contactez-moi</button>
+    <button class="btn" id="contactForm" type="button" onclick="" aria-label="contactez le photographe">Contactez-moi</button>
     <div class="hero__photograph__link__container">
         <img src="${photographer.portrait}" class="hero__photograph__link__container__img" alt="${photographer.name}">
     </div>
@@ -63,6 +94,9 @@ async function showPhotographer(photographer) {
 
 // fonction qui ajoute au DOM tous les médias du photographe
 async function showMedia(medias) {
+  // Supprimez les éléments existants dans la section
+  const gallerySection = document.querySelector('.gallery')
+  gallerySection.innerHTML = ''
   for (const photo of medias) {
     const sectionGallery = document.createElement('section')
     sectionGallery.className += 'gallery__photo'
@@ -158,5 +192,9 @@ async function showPrice(price) {
   <p class="price__day">${myPrice.price} €/jour</p>
   `
 }
+
+modalForm.addEventListener('click', () => {
+
+})
 
 getPhotographer()
