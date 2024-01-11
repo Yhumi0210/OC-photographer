@@ -1,0 +1,122 @@
+/* Colors */
+$black: #000000;
+$white: #FFFFFF;
+$red-wine: #901C1C;
+$orange: #D3573C;
+$grey: #757575;
+$light-grey: #FAFAFA;
+$mid-grey: #525252;
+$pink: #DB8876;
+
+/* Text configuration */
+$body-font: 'DM Sans';
+
+$regular-font-weight: 400;
+$bold-font-weight: 700;
+
+$title-font-size: 2.25rem; /*36px*/
+$body-font-size: 0.813rem; /*13px*/
+$body-text-font-size: 0.625rem; /*10px*/
+$price-font-size: 0.563rem; /*9px*/
+
+/* Photographer page */
+
+$name-font-size: 4rem; /*64px*/
+$city-font-size: 1.5rem; /*24px*/
+$slogan-font-size: 1.125rem; /*18px*/
+
+/* Règles liées au Javascript */
+
+.error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.6rem;
+}
+
+/* Mise en forme de la modale */
+
+.bground {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(136, 136, 140, 0.59);
+  .modal-body {
+    margin: 5% auto;
+    width: 100%;
+    max-width: 34rem;
+    background: $pink;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      width: 32px;
+      height: 32px;
+      opacity: 1;
+      cursor: pointer;
+      transform: scale(0.7);
+    }
+    .close:before,
+    .close:after {
+      position: absolute;
+      left: 15px;
+      content: " ";
+      height: 33px;
+      width: 3px;
+      background-color: #fff;
+    }
+    .close:before {
+      transform: rotate(45deg);
+    }
+    .close:after {
+      transform: rotate(-45deg);
+    }
+      .message__photographer {
+        font-family: $body-font;
+        font-size: 3rem;
+        font-weight: $regular-font-weight;
+      }
+      .formDataRemove {
+        margin-top: 1rem;
+        label {
+          font-family: $body-font;
+          font-size: 2rem;
+          font-weight: $regular-font-weight;
+        }
+
+        input, textarea {
+          font-family: $body-font;
+          padding: 8px;
+          border: 0.8px solid #ccc;
+          outline: none;
+        }
+
+        .text-control {
+          margin: 0;
+          padding: 8px;
+          width: 25rem;
+          border-radius: 8px;
+          font-size: 20px;
+          height: 48px;
+        }
+        .bloc-message {
+          height: 7rem;
+        }
+      }
+      .modal-btn {
+        margin: 1.2rem 0 1.5rem 0;
+      }
+    }
+  }
+

@@ -38,6 +38,28 @@
   <!-- Afficher le tarif -->
   </aside>
 </section>
-<script src="scripts/js/photographer.js"></script>
+<!--Début de la modale-->
+<section class="bground">
+      <div class="modal-body">
+        <span class="close"></span>
+        <form name="send-message" action="" method="get">
+          <section class="formDataRemove">
+            <p class="message__photographer">Contactez-moi</p>
+            <p id="message-id" class="message__photographer"></p>
+              <label>Prénom</label><br>
+              <input class="text-control" type="text" id="first" name="First name"><br>
+              <label>Nom</label><br>
+              <input class="text-control" type="text" id="last" name="Last name"><br>
+              <label>Email</label><br>
+              <input class="text-control" type="email" id="email" name="Email"><br>
+              <label>Votre message</label><br>
+            <textarea class="text-control bloc-message" type="text" id="message" name="Votre message"></textarea>
+          </section>
+          <input id="btn-submit" type="submit" class="btn modal-btn" value="Envoyer">
+        </form>
+      </div>
+</section>
+<script type="module" src="./scripts/js/sort.js"></script>
+<script type="module" src="./scripts/js/photographer.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Design System */
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap");
 /* Modules */
@@ -144,6 +145,107 @@
   align-items: center;
   font-size: 1.5rem;
   font-weight: 400;
+}
+
+/* Colors */
+/* Text configuration */
+/*36px*/
+/*13px*/
+/*10px*/
+/*9px*/
+/* Photographer page */
+/*64px*/
+/*24px*/
+/*18px*/
+/* Règles liées au Javascript */
+.error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.6rem;
+}
+
+/* Mise en forme de la modale */
+.bground {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(136, 136, 140, 0.59);
+}
+.bground .modal-body {
+  margin: 5% auto;
+  width: 100%;
+  max-width: 34rem;
+  background: #DB8876;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.bground .modal-body .close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+  cursor: pointer;
+  transform: scale(0.7);
+}
+.bground .modal-body .close:before,
+.bground .modal-body .close:after {
+  position: absolute;
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 3px;
+  background-color: #fff;
+}
+.bground .modal-body .close:before {
+  transform: rotate(45deg);
+}
+.bground .modal-body .close:after {
+  transform: rotate(-45deg);
+}
+.bground .modal-body .message__photographer {
+  font-family: "DM Sans";
+  font-size: 3rem;
+  font-weight: 400;
+}
+.bground .modal-body .formDataRemove {
+  margin-top: 1rem;
+}
+.bground .modal-body .formDataRemove label {
+  font-family: "DM Sans";
+  font-size: 2rem;
+  font-weight: 400;
+}
+.bground .modal-body .formDataRemove input, .bground .modal-body .formDataRemove textarea {
+  font-family: "DM Sans";
+  padding: 8px;
+  border: 0.8px solid #ccc;
+  outline: none;
+}
+.bground .modal-body .formDataRemove .text-control {
+  margin: 0;
+  padding: 8px;
+  width: 25rem;
+  border-radius: 8px;
+  font-size: 20px;
+  height: 48px;
+}
+.bground .modal-body .formDataRemove .bloc-message {
+  height: 7rem;
+}
+.bground .modal-body .modal-btn {
+  margin: 1.2rem 0 1.5rem 0;
 }
 
 /* Colors */

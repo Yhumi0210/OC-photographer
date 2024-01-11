@@ -1,38 +1,34 @@
-// récupérer l'id du photographe et afficher ses infos
-const paramSearch = window.location.search
-const urlParams = new URLSearchParams(paramSearch)
-// le + converti le string en number
-const photographId = +urlParams.get('id')
-let somme = 0
+// import { getPhotographer } from './photographer'
+//
+// getPhotographer()
+//
+// const response = await fetch(`./scripts/json/photographers.json`)
+// const data = await response.json()
 
-const response = await fetch(`./scripts/json/photographers.json`)
-const data = await response.json()
-
-// si on cherche un seul objet correspondant sinon utiliser filter pour plusieurs réponses possibles
-let myPhotographer = data.photographers.find((photographer) => {
-    return photographer.id === photographId
-})
-
-// Convert the data.media array directly to the myMedia variable
-let myMedia = data.media.filter((mediaItem) => {
-    return mediaItem.photographerId === photographId
-})
-
-// récupération du nombre de like total ( n'affiche pas )
-data.media.forEach((objet) => {
-    if (objet.photographerId === photographId) {
-        somme += objet.likes
-        return somme
-    }
-})
-
-let myPrice = data.photographers.find((price) => {
-    return price.id === photographId
-})
-
-// créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
-// appel des fonctions
-await showPhotographer(myPhotographer)
-await showMedia(myMedia)
-await showCounter(somme)
-await showPrice(myPrice)
+// // Fonction de tri des médias
+// export async function filterMedia(criteria) {
+//   // créer les fonctions de tri
+//   document.getElementById('sortSelect').addEventListener('change', (event) => {
+//     filterMedia(event.target.value)
+//   })
+//
+//   let sortedMedia
+//
+//   switch (criteria) {
+//     case 'byTitle':
+//       sortedMedia = myMedia.slice().sort((a, b) => a.title.localeCompare(b.title))
+//       break
+//     case 'byPopularity':
+//       sortedMedia = myMedia.slice().sort((a, b) => b.likes - a.likes)
+//       break
+//     case 'byDate':
+//       sortedMedia = myMedia.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+//       break
+//     default:
+//       // Par défaut, utilisez le tri par titre
+//       sortedMedia = myMedia.slice().sort((a, b) => a.title.localeCompare(b.title))
+//   }
+//
+//   // Affichez les médias triés
+//   showMedia(sortedMedia)
+// }
