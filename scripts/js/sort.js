@@ -1,10 +1,10 @@
-// import { getPhotographer } from './photographer'
+// import { getPhotographer } from './photographer.js'
 //
 // getPhotographer()
 //
 // const response = await fetch(`./scripts/json/photographers.json`)
 // const data = await response.json()
-
+//
 // // Fonction de tri des médias
 // export async function filterMedia(criteria) {
 //   // créer les fonctions de tri

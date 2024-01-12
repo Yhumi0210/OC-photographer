@@ -8,9 +8,9 @@ const photographId = +urlParams.get('id')
 // variables globales
 let somme = 0
 
-export async function getPhotographer() {
+async function getPhotographer() {
 
-  const response = await fetch(`./scripts/json/photographers.json`)
+  const response = await fetch('./scripts/json/photographers.json')
   const data = await response.json()
 
   // si on cherche un seul objet correspondant sinon utiliser filter pour plusieurs réponses possibles
@@ -18,7 +18,7 @@ export async function getPhotographer() {
     return photographer.id === photographId
   })
 
-  // converti data.media en tableau
+  // converti data.media en tableau, filter ne reformate pas le tableau
   let myMedia = data.media.filter((mediaItem) => {
     return mediaItem.photographerId === photographId
   })
@@ -35,12 +35,12 @@ export async function getPhotographer() {
     return price.id === photographId
   })
 
-// créer les fonctions de tri
+  // créer les fonctions de tri
   document.getElementById('sortSelect').addEventListener('change', (event) => {
     filterMedia(event.target.value)
   })
   // Fonction de tri des médias
-async function filterMedia(criteria) {
+  function filterMedia(criteria) {
     let sortedMedia
 
     switch (criteria) {
@@ -65,36 +65,36 @@ async function filterMedia(criteria) {
   // créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
   // appel de toutes les fonctions pour afficher la page correctement
   // fonction qui ajoute au DOM toutes les infos du photographe
-  await showPhotographer(myPhotographer)
+  showPhotographer(myPhotographer)
   // fonction qui ajoute au DOM tous les médias du photographe
-  await showMedia(myMedia)
+  showMedia(myMedia)
   // fonction qui ajoute au DOM le compteur de like total en bas à droite de la page
-  await showCounter(somme)
+  showCounter(somme)
   // fonction qui ajoute au DOM le tarif journalier du photographe en bas à droite de la page
-  await showPrice(myPrice)
+  showPrice(myPrice)
   // fonction qui filtre les médias
-  await filterMedia('byPopularity')
+  filterMedia('byPopularity')
   // fonction qui ajoute au DOM le formulaire de contact
-  await showModal(myPhotographer)
+  showModal(myPhotographer)
 }
 
 // fonction qui ajoute au DOM toutes les infos du photographe
-async function showPhotographer(photographer) {
+function showPhotographer(photographer) {
   document.querySelector('.photographer').innerHTML = `
-    <section class="photographer__info">
-        <h1 class="photographer__info__name">${photographer.name}</h1>
-        <p class="photographer__info__city">${photographer.city}, ${photographer.country}</p>
-        <p class="photographer__info__tagline">${photographer.tagline}</p>
+    <section class='photographer__info'>
+        <h1 class='photographer__info__name'>${photographer.name}</h1>
+        <p class='photographer__info__city'>${photographer.city}, ${photographer.country}</p>
+        <p class='photographer__info__tagline'>${photographer.tagline}</p>
     </section>
-    <button class="btn" id="contactForm" aria-label="Contact me ${photographer.name}">Contactez-moi</button>
-    <div class="hero__photograph__link__container">
-        <img src="${photographer.portrait}" class="hero__photograph__link__container__img" alt="${photographer.name}">
+    <button class='btn' id='contactForm' aria-label='Contact me ${photographer.name}'>Contactez-moi</button>
+    <div class='hero__photograph__link__container'>
+        <img src='${photographer.portrait}' class='hero__photograph__link__container__img' alt='${photographer.name}'>
     </div>
   `
 }
 
 // fonction qui ajoute au DOM tous les médias du photographe
-async function showMedia(medias) {
+function showMedia(medias) {
   // Supprimez les éléments existants dans la section
   const gallerySection = document.querySelector('.gallery')
   gallerySection.innerHTML = ''
@@ -111,13 +111,16 @@ async function showMedia(medias) {
       const video = document.createElement('video')
       const source = document.createElement('source')
       video.className += 'gallery__photo__card__container__img'
+      // video.setAttribute('controls', true)
       source.setAttribute('src', `${photo.video}`)
+      source.setAttribute('type', 'video/mp4')
       video.appendChild(source)
       divGalleryContain.appendChild(video)
     } else {
       const img = document.createElement('img')
       img.className += 'gallery__photo__card__container__img'
       img.setAttribute('src', `${photo.image}`)
+      img.setAttribute('tabindex', 0)
       divGalleryContain.appendChild(img)
     }
     const divGalleryInfo = document.createElement('div')
@@ -141,6 +144,7 @@ async function showMedia(medias) {
 
     const iGalleryHeart = document.createElement('i')
     iGalleryHeart.className += 'gallery__photo__card__info__like__heart fa-regular fa-heart'
+    iGalleryHeart.setAttribute('tabindex', 0)
 
     iGalleryHeart.addEventListener('click', () => {
       if (canLike) {
@@ -177,52 +181,53 @@ async function showMedia(medias) {
 }
 
 // fonction qui ajoute au DOM le compteur de like total en bas à droite de la page
-async function showCounter(countLikes) {
+function showCounter() {
   document.querySelector('.counter').innerHTML = `
-  <div class="counter__text">
-    <p class="counter__text__number">${somme}</p>
-    <i class="counter__text__heart fa-solid fa-heart"></i>
+  <div class='counter__text'>
+    <p class='counter__text__number'>${somme}</p>
+    <i class='counter__text__heart fa-solid fa-heart'></i>
   </div>
   `
 }
 
 // fonction qui ajoute au DOM le tarif journalier du photographe en bas à droite de la page
-async function showPrice(price) {
+function showPrice(price) {
   const myPrice = price
   document.querySelector('.price').innerHTML = `
-  <p class="price__day">${myPrice.price} €/jour</p>
+  <p class='price__day'>${myPrice.price} €/jour</p>
   `
 }
 
-async function showModal(photographer) {
+function showModal(photographer) {
+
+  //pour fermer la modal au click en dehors, addlistener sur la div du fond gris
 // DOM Elements
   const messagePhotographer = document.getElementById('message-id')
   // Sélectionner le bouton d'ouverture
   const modalBtn = document.getElementById('contactForm')
   console.log(modalBtn)
   // Sélectionner la balise qui contient la modale
-  const modalbg = document.querySelector(".bground")
-  const modalContent = document.querySelector('.content')
+  const modalbg = document.querySelector('.bground')
   // Sélectionner le bouton de fermeture
-  const closeModalBg = document.querySelector(".close")
+  const closeModalBg = document.querySelector('.close')
   // Sélectionner le formulaire
-  let form = document.querySelector("form")
+  let form = document.querySelector('form')
 
 // launch modal event
-  modalBtn.addEventListener("click", launchModal)
+  modalBtn.addEventListener('click', launchModal)
 //forEach sert à boucler dans un tableau, boucle infinie qu'on ne peut pas arrêter
 
 // launch modal form
   function launchModal() {
-    modalbg.style.display = "block"
+    modalbg.style.display = 'block'
   }
 
 // Première étape : commencer par fermer la popup en utilisant un display none
 // et dire à ma function d'écouter au click
 // Ajouter un écouteur d'événement au click
-  closeModalBg.addEventListener("click", () => {
+  closeModalBg.addEventListener('click', () => {
     // Fermez la modale en changeant son style display à 'none'
-    modalbg.style.display = "none"
+    modalbg.style.display = 'none'
   })
 
   messagePhotographer.textContent = `${photographer.name}`
@@ -232,10 +237,10 @@ async function showModal(photographer) {
 // submit(sans recharger la page)
 // récupérer les valeurs de ce qu'on tape dans les champs console.log(   .value)
 // pour y ajouter des vérifications
-  form.addEventListener("submit", (event) => {
+  form.addEventListener('submit', (event) => {
     event.preventDefault()
     // Récupérer, écouter et vérifier l'entrée du Prénom
-    let baliseFirstName = document.getElementById("first")
+    let baliseFirstName = document.getElementById('first')
     let first = baliseFirstName.value
 
     function validName(name) {
@@ -243,27 +248,27 @@ async function showModal(photographer) {
     }
 
     if (validName(first)) {
-      console.log("Le prénom est valide.")
+      console.log('Le prénom est valide.')
     } else {
-      console.error("Veuillez saisir au moins 2 caractères.")
+      console.error('Veuillez saisir au moins 2 caractères.')
     }
 
 // Récupérer, écouter et vérifier l'entrée du Nom
-    let baliseLastName = document.getElementById("last")
+    let baliseLastName = document.getElementById('last')
     let last = baliseLastName.value
 
     if (validName(last)) {
-      console.log("Le nom est valide.")
+      console.log('Le nom est valide.')
     } else {
-      console.error("Veuillez saisir au moins 2 caractères.")
+      console.error('Veuillez saisir au moins 2 caractères.')
     }
 
     // Récupérer, écouter et vérifier l'entrée de l'Email
-    let baliseEmail = document.getElementById("email")
+    let baliseEmail = document.getElementById('email')
     let email = baliseEmail.value
 
     function validEmail(email) {
-      let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+      let emailRegExp = new RegExp('[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+')
       if (emailRegExp.test(email)) {
         return true
       }
@@ -271,12 +276,12 @@ async function showModal(photographer) {
     }
 
     if (validEmail(email)) {
-      console.log("L'e-mail est valide.")
+      console.log('L\'e-mail est valide.')
     } else {
-      console.error("L'adresse e-mail est invalide.")
+      console.error('L\'adresse e-mail est invalide.')
     }
 
-    let baliseMessage = document.getElementById("message")
+    let baliseMessage = document.getElementById('message')
     let message = baliseMessage.value
 
     function validMessage(message) {
@@ -284,9 +289,9 @@ async function showModal(photographer) {
     }
 
     if (validMessage(message)) {
-      console.log("Merci pour votre message")
+      console.log('Merci pour votre message')
     } else {
-      console.error("Veuillez saisir votre message")
+      console.error('Veuillez saisir votre message')
     }
     // Vérifie si tous les champs sont valides
     if (
@@ -301,13 +306,13 @@ async function showModal(photographer) {
       console.log('Message : ', baliseMessage.value)
 
       form.reset()
-      form.style.display = "none"
-      modalbg.style.display = "none"
-      form.style.display = "block"
+      form.style.display = 'none'
+      modalbg.style.display = 'none'
+      form.style.display = 'block'
       console.log('Votre message a été envoyé')
 
     } else {
-      console.log("Certains champs ne sont pas valides")
+      console.log('Certains champs ne sont pas valides')
     }
   })
 }

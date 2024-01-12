@@ -1,9 +1,10 @@
+// ctrl alt L pour formater
+// ctrl alt maj J pour sélectionner les caractères identiques
 async function fetchAndDisplayPhotographers() {
-  const response = await fetch("./scripts/json/photographers.json")
+  const response = await fetch('./scripts/json/photographers.json')
   const data = await response.json()
 
   const photographers = data.photographers
-  const media = data.media
 
   for (const photographer of photographers) {
     const section = document.createElement('section')
@@ -15,7 +16,7 @@ async function fetchAndDisplayPhotographers() {
 
     const portraitDiv = document.createElement('div')
     portraitDiv.className += 'hero__photograph__link__container'
-    portraitDiv.innerHTML = `<img src="${photographer.portrait}" class="hero__photograph__link__container__img" alt=""/>`
+    portraitDiv.innerHTML = `<img src='${photographer.portrait}' class='hero__photograph__link__container__img' alt=''/>`
 
     const nameTitle = document.createElement('h2')
     nameTitle.textContent = photographer.name
@@ -38,14 +39,14 @@ async function fetchAndDisplayPhotographers() {
 
     const textPrice = document.createElement('p')
     textPrice.className += 'hero__photograph__text__price'
-    textPrice.textContent = photographer.price + "€/jour"
+    textPrice.textContent = photographer.price + '€/jour'
 
     section.appendChild(textPhotograph)
     textPhotograph.appendChild(textCity)
     textPhotograph.appendChild(textTag)
     textPhotograph.appendChild(textPrice)
 
-    document.querySelector(".hero").appendChild(section)
+    document.querySelector('.hero').appendChild(section)
   }
 }
 
