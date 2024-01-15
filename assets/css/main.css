@@ -71,17 +71,10 @@
   justify-content: center;
 }
 .gallery__photo__card__container {
-  /*overflow: hidden;*/
-  /*object-fit: cover;*/
   width: 25rem;
   height: 20rem;
-  /*position: relative;*/
 }
 .gallery__photo__card__container__img {
-  /*position: absolute;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);*/
   border-radius: 5px;
   width: 100%;
   height: 100%;
@@ -112,6 +105,57 @@
 .gallery__photo__card__info__like__heart {
   color: #901C1C;
   font-size: 1.3rem;
+}
+
+.lightbox {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+}
+.lightbox__img {
+  align-self: center;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+.lightbox__title {
+  margin: 1rem 0 0 9.3rem;
+  font-size: 1.5rem;
+  color: #901C1C;
+}
+.lightbox__close {
+  position: absolute;
+  right: 5rem;
+  top: 5rem;
+  opacity: 1;
+  cursor: pointer;
+  font-size: 3rem;
+  color: #901C1C;
+}
+.lightbox__right {
+  position: absolute;
+  right: 5rem;
+  top: 26rem;
+  opacity: 1;
+  cursor: pointer;
+  font-size: 2.5rem;
+  color: #901C1C;
+}
+.lightbox__left {
+  position: absolute;
+  left: 5rem;
+  top: 26rem;
+  opacity: 1;
+  cursor: pointer;
+  font-size: 2.5rem;
+  color: #901C1C;
 }
 
 .like__counter {
@@ -191,28 +235,12 @@
 }
 .bground .modal-body .close {
   position: absolute;
-  right: 15px;
-  top: 15px;
-  width: 32px;
-  height: 32px;
+  right: 1.5rem;
+  top: 1.5rem;
   opacity: 1;
   cursor: pointer;
-  transform: scale(0.7);
-}
-.bground .modal-body .close:before,
-.bground .modal-body .close:after {
-  position: absolute;
-  left: 15px;
-  content: " ";
-  height: 33px;
-  width: 3px;
-  background-color: #fff;
-}
-.bground .modal-body .close:before {
-  transform: rotate(45deg);
-}
-.bground .modal-body .close:after {
-  transform: rotate(-45deg);
+  font-size: 2.5rem;
+  color: #FFFFFF;
 }
 .bground .modal-body .message__photographer {
   font-family: "DM Sans";

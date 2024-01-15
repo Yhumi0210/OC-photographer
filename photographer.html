@@ -6,7 +6,9 @@
   <meta name="description" content="">
   <link rel="stylesheet" href="assets/css/main.css" type="text/css">
   <link rel="icon" type="image/png" href="img/logo.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <title>FishEye</title>
 </head>
@@ -30,34 +32,42 @@
 <section class="gallery">
   <!-- Afficher les médias du photographe -->
 </section>
+<article class="lightbox" aria-label="image closeup view">
+  <i class="lightbox__close fa-solid fa-xmark" aria-label="close dialog"></i>
+  <i class="lightbox__right fa-solid fa-chevron-right" aria-label="next image"></i>
+  <i class="lightbox__left fa-solid fa-chevron-left" aria-label="previous image"></i>
+  <img class="lightbox__img" src="./img/tracy/Art_Mine.jpg" alt="">
+  <p class="lightbox__title">Arc-en-ciel</p>
+  <!-- Afficher les médias dans une lightbox -->
+</article>
 <section class="like__counter">
   <aside class="counter">
-  <!-- Afficher le compteur de likes -->
+    <!-- Afficher le compteur de likes -->
   </aside>
   <aside class="price">
-  <!-- Afficher le tarif -->
+    <!-- Afficher le tarif -->
   </aside>
 </section>
 <!--Début de la modale-->
 <section class="bground">
-      <div class="modal-body">
-        <span class="close"></span>
-        <form name="send-message" action="" method="get">
-          <section class="formDataRemove">
-            <p class="message__photographer">Contactez-moi</p>
-            <p id="message-id" class="message__photographer"></p>
-              <label>Prénom</label><br>
-              <input class="text-control" type="text" id="first" name="First name"><br>
-              <label>Nom</label><br>
-              <input class="text-control" type="text" id="last" name="Last name"><br>
-              <label>Email</label><br>
-              <input class="text-control" type="email" id="email" name="Email"><br>
-              <label>Votre message</label><br>
-            <textarea class="text-control bloc-message" type="text" id="message" name="Votre message"></textarea>
-          </section>
-          <input id="btn-submit" type="submit" class="btn modal-btn" value="Envoyer">
-        </form>
-      </div>
+  <div class="modal-body">
+    <i class="close fa-solid fa-xmark" aria-label="close form"></i>
+    <form name="send-message" action="" method="get">
+      <section class="formDataRemove">
+        <p class="message__photographer">Contactez-moi</p>
+        <p id="message-id" class="message__photographer"></p>
+        <label>Prénom</label><br>
+        <input class="text-control" type="text" id="first" name="First name"><br>
+        <label>Nom</label><br>
+        <input class="text-control" type="text" id="last" name="Last name"><br>
+        <label>Email</label><br>
+        <input class="text-control" type="email" id="email" name="Email"><br>
+        <label>Votre message</label><br>
+        <textarea class="text-control bloc-message" type="text" id="message" name="Votre message"></textarea>
+      </section>
+      <input id="btn-submit" type="submit" class="btn modal-btn" value="Envoyer">
+    </form>
+  </div>
 </section>
 <script type="module" src="./scripts/js/sort.js"></script>
 <script type="module" src="./scripts/js/photographer.js"></script>

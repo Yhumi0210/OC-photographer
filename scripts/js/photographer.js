@@ -1,5 +1,7 @@
 //import { filterMedia } from './sort'
 // récupérer l'id du photographe et afficher ses infos
+// ctrl alt L pour formater
+// ctrl alt maj J pour sélectionner les caractères identiques
 const paramSearch = window.location.search
 const urlParams = new URLSearchParams(paramSearch)
 // le + converti le string en number
@@ -39,6 +41,7 @@ async function getPhotographer() {
   document.getElementById('sortSelect').addEventListener('change', (event) => {
     filterMedia(event.target.value)
   })
+
   // Fonction de tri des médias
   function filterMedia(criteria) {
     let sortedMedia
@@ -76,6 +79,7 @@ async function getPhotographer() {
   filterMedia('byPopularity')
   // fonction qui ajoute au DOM le formulaire de contact
   showModal(myPhotographer)
+  showLightbox()
 }
 
 // fonction qui ajoute au DOM toutes les infos du photographe
@@ -315,6 +319,36 @@ function showModal(photographer) {
       console.log('Certains champs ne sont pas valides')
     }
   })
+}
+
+function showLightbox() {
+
+  // Sélectionner tous les composants de la page pour pouvoir les cacher
+  const hideAll = document.querySelectorAll('.header, .photographer, .sort, .gallery, .like__counter')
+  // Image sur laquelle on a cliqué
+  const showLarge = document.querySelector('.gallery__photo__card__container__img')
+  // Sélectionner le container lightbox
+  const lightBox = document.querySelector('.lightbox')
+  // Afficher l'image en grand
+  const showImage = document.querySelector('.lightbox__img')
+  // Sélectionner les icones pour fermer ou image précédente ou suivante
+  const closeLightbox = document.querySelector('.lightbox__close')
+  const previousImg = document.querySelector('.lightbox__left')
+  const nextImg = document.querySelector('.lightbox__right')
+
+  for (let i = 0; i < showLarge.length; i++) {
+    showLarge[i].addEventListener('click', () => {
+        let imageSource = this.getAttribute('src')
+        showImage.setAttribute('src', imageSource)
+        lightBox.style.display = 'flex'
+        hideAll.style.display = 'none'
+      })
+    }
+
+  closeLightbox.addEventListener('click', () => {
+    lightBox.style.display = 'none'
+    hideAll.style.display = 'block'
+    })
 }
 
 getPhotographer()
