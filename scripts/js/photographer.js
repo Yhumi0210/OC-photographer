@@ -336,19 +336,19 @@ function showLightbox() {
   const previousImg = document.querySelector('.lightbox__left')
   const nextImg = document.querySelector('.lightbox__right')
 
-  for (let i = 0; i < showLarge.length; i++) {
-    showLarge[i].addEventListener('click', () => {
-        let imageSource = this.getAttribute('src')
-        showImage.setAttribute('src', imageSource)
-        lightBox.style.display = 'flex'
-        hideAll.style.display = 'none'
-      })
-    }
-
-  closeLightbox.addEventListener('click', () => {
-    lightBox.style.display = 'none'
-    hideAll.style.display = 'block'
-    })
+  // for (let i = 0; i < showLarge.length; i++) {
+  //   showLarge[i].addEventListener('click', () => {
+  //       let imageSource = this.getAttribute('src')
+  //       showImage.setAttribute('src', imageSource)
+  //       lightBox.style.display = 'flex'
+  //       hideAll.style.display = 'none'
+  //     })
+  //   }
+  //
+  // closeLightbox.addEventListener('click', () => {
+  //   lightBox.style.display = 'none'
+  //   hideAll.style.display = 'block'
+  //   })
 }
 
 getPhotographer()
