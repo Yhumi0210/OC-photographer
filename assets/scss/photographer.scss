@@ -25,6 +25,10 @@ $name-font-size: 4rem; /*64px*/
 $city-font-size: 1.5rem; /*24px*/
 $slogan-font-size: 1.125rem; /*18px*/
 
+.hide {
+  display: block;
+}
+
 .photographer {
   padding: 2rem;
   margin-top: 3rem;
@@ -57,13 +61,10 @@ $slogan-font-size: 1.125rem; /*18px*/
 }
 
 .sort {
-  margin-top: 3rem;
-  margin-left: 6rem;
-  margin-right: 6rem;
+  margin: 3rem 6rem 2rem 6rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 2rem;
   &__text {
     font-size: $slogan-font-size;
     font-weight: $bold-font-weight;
@@ -73,9 +74,7 @@ $slogan-font-size: 1.125rem; /*18px*/
 }
 
 .gallery {
-  margin-top: 3rem;
-  margin-left: 6rem;
-  margin-right: 6rem;
+  margin: 3rem 6rem 3rem 6rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -92,6 +91,7 @@ $slogan-font-size: 1.125rem; /*18px*/
           width: 100%;
           height: 100%;
           object-fit: cover;
+          cursor: zoom-in;
         }
       }
       &__info {
@@ -135,11 +135,16 @@ $slogan-font-size: 1.125rem; /*18px*/
   width: 100%;
   height: 100%;
 
-  &__img {
+  &__container {
     align-self: center;
     width: 80%;
     height: 80%;
-    object-fit: contain;
+    object-fit: cover;
+    &__img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   &__title {

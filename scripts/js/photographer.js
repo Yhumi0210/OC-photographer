@@ -1,4 +1,3 @@
-//import { filterMedia } from './sort'
 // récupérer l'id du photographe et afficher ses infos
 // ctrl alt L pour formater
 // ctrl alt maj J pour sélectionner les caractères identiques
@@ -79,7 +78,6 @@ async function getPhotographer() {
   filterMedia('byPopularity')
   // fonction qui ajoute au DOM le formulaire de contact
   showModal(myPhotographer)
-  showLightbox()
 }
 
 // fonction qui ajoute au DOM toutes les infos du photographe
@@ -99,55 +97,77 @@ function showPhotographer(photographer) {
 
 // fonction qui ajoute au DOM tous les médias du photographe
 function showMedia(medias) {
-  // Supprimez les éléments existants dans la section
   const gallerySection = document.querySelector('.gallery')
+  const hideAll = document.querySelectorAll('.hide')
   gallerySection.innerHTML = ''
+
   for (const photo of medias) {
     const sectionGallery = document.createElement('section')
-    sectionGallery.className += 'gallery__photo'
+    sectionGallery.className = 'gallery__photo'
 
     const artGallery = document.createElement('article')
-    artGallery.className += 'gallery__photo__card'
+    artGallery.className = 'gallery__photo__card'
 
     const divGalleryContain = document.createElement('div')
-    divGalleryContain.className += 'gallery__photo__card__container'
+    divGalleryContain.className = 'gallery__photo__card__container'
+
+    const createClickHandler = (index) => {
+      return () => {
+        showLightbox(medias, index)
+        hideAll.forEach((hideAll) => {
+          hideAll.style.display = 'none'
+        })
+      }
+    }
+
+    let img
     if (photo.video) {
       const video = document.createElement('video')
       const source = document.createElement('source')
-      video.className += 'gallery__photo__card__container__img'
-      // video.setAttribute('controls', true)
+      video.className = 'gallery__photo__card__container__img'
       source.setAttribute('src', `${photo.video}`)
       source.setAttribute('type', 'video/mp4')
       video.appendChild(source)
       divGalleryContain.appendChild(video)
+      video.addEventListener('click', () => {
+        const index = medias.indexOf(photo)
+        console.log('Video Clicked - Index:', index)
+        createClickHandler(index)()
+      })
     } else {
-      const img = document.createElement('img')
-      img.className += 'gallery__photo__card__container__img'
+      img = document.createElement('img')
+      img.className = 'gallery__photo__card__container__img'
       img.setAttribute('src', `${photo.image}`)
       img.setAttribute('tabindex', 0)
       divGalleryContain.appendChild(img)
+      img.addEventListener('click', () => {
+        const index = medias.indexOf(photo)
+        console.log('Image Clicked - Index:', index)
+        createClickHandler(index)()
+      })
     }
+
     const divGalleryInfo = document.createElement('div')
-    divGalleryInfo.className += 'gallery__photo__card__info'
+    divGalleryInfo.className = 'gallery__photo__card__info'
 
     sectionGallery.appendChild(artGallery)
     artGallery.appendChild(divGalleryContain)
     artGallery.appendChild(divGalleryInfo)
 
     const pGalleryName = document.createElement('p')
-    pGalleryName.className += 'gallery__photo__card__info__name'
+    pGalleryName.className = 'gallery__photo__card__info__name'
     pGalleryName.textContent = `${photo.title}`
 
     const divGalleryLike = document.createElement('div')
-    divGalleryLike.className += 'gallery__photo__card__info__like'
+    divGalleryLike.className = 'gallery__photo__card__info__like'
 
     let pGalleryNumber = document.createElement('p')
-    pGalleryNumber.className += 'gallery__photo__card__info__like__number'
+    pGalleryNumber.className = 'gallery__photo__card__info__like__number'
     pGalleryNumber.textContent = `${photo.likes}`
     let canLike = true
 
     const iGalleryHeart = document.createElement('i')
-    iGalleryHeart.className += 'gallery__photo__card__info__like__heart fa-regular fa-heart'
+    iGalleryHeart.className = 'gallery__photo__card__info__like__heart fa-regular fa-heart'
     iGalleryHeart.setAttribute('tabindex', 0)
 
     iGalleryHeart.addEventListener('click', () => {
@@ -180,8 +200,78 @@ function showMedia(medias) {
     divGalleryLike.appendChild(pGalleryNumber)
     divGalleryLike.appendChild(iGalleryHeart)
 
-    document.querySelector('.gallery').appendChild(sectionGallery)
+    gallerySection.appendChild(sectionGallery)
   }
+}
+
+// Fonction qui affiche la lightbox
+function showLightbox(medias, index) {
+  const lightBox = document.querySelector('.lightbox')
+  let currentIndex = index
+  lightBox.innerHTML = ''
+  const hideAll = document.querySelectorAll('.hide')
+  const divLightboxContain = document.createElement('div')
+  const closeLightbox = document.createElement('i')
+  const previousImg = document.createElement('i')
+  const nextImg = document.createElement('i')
+  const lightboxInfo = document.createElement('p')
+
+  lightBox.style.display = 'flex'
+
+  closeLightbox.className = 'lightbox__close fa-solid fa-xmark'
+  nextImg.className = 'lightbox__right fa-solid fa-chevron-right'
+  previousImg.className = 'lightbox__left fa-solid fa-chevron-left'
+  divLightboxContain.className = 'lightbox__container'
+  lightboxInfo.className = 'lightbox__title'
+
+  lightBox.appendChild(closeLightbox)
+  lightBox.appendChild(previousImg)
+  lightBox.appendChild(nextImg)
+  lightBox.appendChild(divLightboxContain)
+  lightBox.appendChild(lightboxInfo)
+
+  displayImage(currentIndex)
+
+  nextImg.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % medias.length
+    displayImage(currentIndex)
+  })
+
+  previousImg.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + medias.length) % medias.length
+    displayImage(currentIndex)
+  })
+
+  function displayImage(index) {
+    const currentPhoto = medias[index]
+    lightboxInfo.textContent = `${currentPhoto.title}`
+
+    if (currentPhoto.video) {
+      const videoLightbox = document.createElement('video')
+      const sourceLightbox = document.createElement('source')
+      videoLightbox.className = 'lightbox__container__img'
+      sourceLightbox.setAttribute('src', currentPhoto.video)
+      sourceLightbox.setAttribute('type', 'video/mp4')
+      videoLightbox.setAttribute('controls', 'true')
+      videoLightbox.appendChild(sourceLightbox)
+      divLightboxContain.innerHTML = ''
+      divLightboxContain.appendChild(videoLightbox)
+    } else {
+      const imgLightbox = document.createElement('img')
+      imgLightbox.className = 'lightbox__container__img'
+      imgLightbox.setAttribute('src', currentPhoto.image)
+      imgLightbox.setAttribute('tabindex', 0)
+      divLightboxContain.innerHTML = ''
+      divLightboxContain.appendChild(imgLightbox)
+    }
+  }
+
+  closeLightbox.addEventListener('click', () => {
+    lightBox.style.display = 'none'
+    hideAll.forEach((hideAll) => {
+      hideAll.style.display = ''
+    })
+  })
 }
 
 // fonction qui ajoute au DOM le compteur de like total en bas à droite de la page
@@ -209,7 +299,6 @@ function showModal(photographer) {
   const messagePhotographer = document.getElementById('message-id')
   // Sélectionner le bouton d'ouverture
   const modalBtn = document.getElementById('contactForm')
-  console.log(modalBtn)
   // Sélectionner la balise qui contient la modale
   const modalbg = document.querySelector('.bground')
   // Sélectionner le bouton de fermeture
@@ -319,36 +408,6 @@ function showModal(photographer) {
       console.log('Certains champs ne sont pas valides')
     }
   })
-}
-
-function showLightbox() {
-
-  // Sélectionner tous les composants de la page pour pouvoir les cacher
-  const hideAll = document.querySelectorAll('.header, .photographer, .sort, .gallery, .like__counter')
-  // Image sur laquelle on a cliqué
-  const showLarge = document.querySelector('.gallery__photo__card__container__img')
-  // Sélectionner le container lightbox
-  const lightBox = document.querySelector('.lightbox')
-  // Afficher l'image en grand
-  const showImage = document.querySelector('.lightbox__img')
-  // Sélectionner les icones pour fermer ou image précédente ou suivante
-  const closeLightbox = document.querySelector('.lightbox__close')
-  const previousImg = document.querySelector('.lightbox__left')
-  const nextImg = document.querySelector('.lightbox__right')
-
-  // for (let i = 0; i < showLarge.length; i++) {
-  //   showLarge[i].addEventListener('click', () => {
-  //       let imageSource = this.getAttribute('src')
-  //       showImage.setAttribute('src', imageSource)
-  //       lightBox.style.display = 'flex'
-  //       hideAll.style.display = 'none'
-  //     })
-  //   }
-  //
-  // closeLightbox.addEventListener('click', () => {
-  //   lightBox.style.display = 'none'
-  //   hideAll.style.display = 'block'
-  //   })
 }
 
 getPhotographer()
