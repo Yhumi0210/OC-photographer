@@ -127,6 +127,7 @@ function showMedia(medias) {
       video.className = 'gallery__photo__card__container__img'
       source.setAttribute('src', `${photo.video}`)
       source.setAttribute('type', 'video/mp4')
+      source.setAttribute('tabindex', 0)
       video.appendChild(source)
       divGalleryContain.appendChild(video)
       video.addEventListener('click', () => {
