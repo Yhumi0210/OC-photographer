@@ -134,6 +134,14 @@ function showMedia(medias) {
         console.log('Video Clicked - Index:', index)
         createClickHandler(index)()
       })
+      // Ouvrir la lightbox avec la touche enter
+      video.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          const index = medias.indexOf(photo)
+          console.log('Image Clicked - Index:', index)
+          createClickHandler(index)()
+        }
+      })
     } else {
       img = document.createElement('img')
       img.className = 'gallery__photo__card__container__img'
@@ -144,6 +152,13 @@ function showMedia(medias) {
         const index = medias.indexOf(photo)
         console.log('Image Clicked - Index:', index)
         createClickHandler(index)()
+      })
+      img.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          const index = medias.indexOf(photo)
+          console.log('Image Clicked - Index:', index)
+          createClickHandler(index)()
+        }
       })
     }
 
@@ -194,6 +209,27 @@ function showMedia(medias) {
         canLike = true
       }
     })
+    // Ajouter et enlever des likes avec la touche enter
+    let isHeartFilled = false // Variable pour suivre l'état du coeur
+    iGalleryHeart.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        if (!isHeartFilled) {
+          // Ajouter un like (coeur plein)
+          pGalleryNumber.textContent++
+          somme++
+          iGalleryHeart.classList.add('fa-solid')
+          isHeartFilled = true
+        } else {
+          // Retirer un like (coeur vide)
+          pGalleryNumber.textContent--
+          somme--
+          iGalleryHeart.classList.remove('fa-solid')
+          isHeartFilled = false
+        }
+        // Appel de l'UPDATE
+        showCounter(somme)
+      }
+    })
 
     divGalleryInfo.appendChild(pGalleryName)
     divGalleryInfo.appendChild(divGalleryLike)
@@ -241,6 +277,20 @@ function showLightbox(medias, index) {
     currentIndex = (currentIndex - 1 + medias.length) % medias.length
     displayImage(currentIndex)
   })
+  // Faire défiler les médias avec les touches du clavier flèche droite flèche gauche
+  document.addEventListener('keydown', (event) => {
+    if (lightBox.style.display === 'flex') {
+      if (event.key === 'ArrowLeft') {
+        // Défiler vers la gauche
+        currentIndex = (currentIndex - 1 + medias.length) % medias.length
+        displayImage(currentIndex)
+      } else if (event.key === 'ArrowRight') {
+        // Défiler vers la droite
+        currentIndex = (currentIndex + 1) % medias.length
+        displayImage(currentIndex)
+      }
+    }
+  })
 
   function displayImage(index) {
     const currentPhoto = medias[index]
@@ -253,9 +303,12 @@ function showLightbox(medias, index) {
       sourceLightbox.setAttribute('src', currentPhoto.video)
       sourceLightbox.setAttribute('type', 'video/mp4')
       videoLightbox.setAttribute('controls', 'true')
+      videoLightbox.setAttribute('tabindex', '0')
       videoLightbox.appendChild(sourceLightbox)
       divLightboxContain.innerHTML = ''
       divLightboxContain.appendChild(videoLightbox)
+      // Focaliser (sélectionner) l'élément vidéo pour pouvoir utiliser espace pour lancer la vidéo
+      videoLightbox.focus()
     } else {
       const imgLightbox = document.createElement('img')
       imgLightbox.className = 'lightbox__container__img'
@@ -271,6 +324,15 @@ function showLightbox(medias, index) {
     hideAll.forEach((hideAll) => {
       hideAll.style.display = ''
     })
+  })
+  // Fermer la lightbox avec echap
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightBox.style.display === 'flex') {
+      lightBox.style.display = 'none'
+      hideAll.forEach((hideAll) => {
+        hideAll.style.display = ''
+      })
+    }
   })
 }
 
@@ -306,6 +368,20 @@ function showModal(photographer) {
   // Sélectionner le formulaire
   let form = document.querySelector('form')
 
+  // Rendre la modal accessible au clavier
+  // Ouvrir avec enter
+  document.getElementById('contactForm').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      launchModal()
+    }
+  })
+  // Fermer avec echap
+  document.getElementById('contactForm').addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modalbg.style.display === 'block') {
+      modalbg.style.display = 'none'
+    }
+  })
 // launch modal event
   modalBtn.addEventListener('click', launchModal)
 //forEach sert à boucler dans un tableau, boucle infinie qu'on ne peut pas arrêter

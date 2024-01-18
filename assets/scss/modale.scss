@@ -48,6 +48,7 @@ $slogan-font-size: 1.125rem; /*18px*/
   width: 100%;
   overflow: auto;
   background-color: rgba(136, 136, 140, 0.59);
+
   .modal-body {
     margin: 5% auto;
     width: 100%;
@@ -57,6 +58,7 @@ $slogan-font-size: 1.125rem; /*18px*/
     position: relative;
     display: flex;
     justify-content: center;
+
     .close {
       position: absolute;
       right: 1.5rem;
@@ -66,41 +68,46 @@ $slogan-font-size: 1.125rem; /*18px*/
       font-size: 2.5rem;
       color: $white;
     }
-      .message__photographer {
+
+    .message__photographer {
+      font-family: $body-font;
+      font-size: 3rem;
+      font-weight: $regular-font-weight;
+    }
+
+    .formDataRemove {
+      margin-top: 1rem;
+
+      label {
         font-family: $body-font;
-        font-size: 3rem;
+        font-size: 2rem;
         font-weight: $regular-font-weight;
       }
-      .formDataRemove {
-        margin-top: 1rem;
-        label {
-          font-family: $body-font;
-          font-size: 2rem;
-          font-weight: $regular-font-weight;
-        }
 
-        input, textarea {
-          font-family: $body-font;
-          padding: 8px;
-          border: 0.8px solid #ccc;
-          outline: none;
-        }
-
-        .text-control {
-          margin: 0;
-          padding: 8px;
-          width: 25rem;
-          border-radius: 8px;
-          font-size: 20px;
-          height: 48px;
-        }
-        .bloc-message {
-          height: 7rem;
-        }
+      input, textarea {
+        font-family: $body-font;
+        padding: 8px;
+        border: 0.8px solid #ccc;
+        outline: none;
       }
-      .modal-btn {
-        margin: 1.2rem 0 1.5rem 0;
+
+      .text-control {
+        margin: 0;
+        padding: 8px;
+        width: 25rem;
+        border-radius: 8px;
+        font-size: 20px;
+        height: 48px;
+      }
+
+      .bloc-message {
+        height: 7rem;
       }
     }
+
+    .modal-btn {
+      margin: 1.2rem 0 1.5rem 0;
+    }
   }
+}
 

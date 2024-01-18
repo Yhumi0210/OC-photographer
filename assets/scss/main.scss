@@ -33,7 +33,6 @@ $city-font-size: 1.5rem; /*24px*/
 $slogan-font-size: 1.125rem; /*18px*/
 
 
-
 * {
   margin: 0;
   padding: 0;
@@ -70,11 +69,13 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
+
   &__home {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
     &__logo {
       width: 15rem;
       height: auto;
