@@ -26,7 +26,9 @@ $city-font-size: 1.5rem; /*24px*/
 $slogan-font-size: 1.125rem; /*18px*/
 
 .hide {
-  display: block;
+  &.inactive {
+    display: none;
+  }
 }
 
 .photographer {
@@ -137,6 +139,9 @@ $slogan-font-size: 1.125rem; /*18px*/
 }
 
 .lightbox {
+  &.active {
+    display: flex;
+  }
   display: none;
   flex-direction: column;
   justify-content: center;

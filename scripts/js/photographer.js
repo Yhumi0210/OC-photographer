@@ -1,6 +1,8 @@
-// récupérer l'id du photographe et afficher ses infos
 // ctrl alt L pour formater
 // ctrl alt maj J pour sélectionner les caractères identiques
+import { showPhotographer, showPrice, showCounter, showModal } from "./sort.js"
+
+// récupérer l'id du photographe et afficher ses infos
 const paramSearch = window.location.search
 const urlParams = new URLSearchParams(paramSearch)
 // le + converti le string en number
@@ -31,38 +33,11 @@ async function getPhotographer() {
       return somme
     }
   })
+
   // récupération du prix de la prestation du photographe
   let myPrice = data.photographers.find((price) => {
     return price.id === photographId
   })
-
-  // créer les fonctions de tri
-  document.getElementById('sortSelect').addEventListener('change', (event) => {
-    filterMedia(event.target.value)
-  })
-
-  // Fonction de tri des médias
-  function filterMedia(criteria) {
-    let sortedMedia
-
-    switch (criteria) {
-      case 'byTitle':
-        sortedMedia = myMedia.slice().sort((a, b) => a.title.localeCompare(b.title))
-        break
-      case 'byPopularity':
-        sortedMedia = myMedia.slice().sort((a, b) => b.likes - a.likes)
-        break
-      case 'byDate':
-        sortedMedia = myMedia.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
-        break
-      default:
-        // Par défaut, utilisez le tri par titre
-        sortedMedia = myMedia.slice().sort((a, b) => a.title.localeCompare(b.title))
-    }
-
-    // Affichez les médias triés
-    showMedia(sortedMedia)
-  }
 
   // créer la page (c'est mieux si on appelle une fonction écrite à l'extérieur)
   // appel de toutes les fonctions pour afficher la page correctement
@@ -75,24 +50,9 @@ async function getPhotographer() {
   // fonction qui ajoute au DOM le tarif journalier du photographe en bas à droite de la page
   showPrice(myPrice)
   // fonction qui filtre les médias
-  filterMedia('byPopularity')
+  showSortMedia(myMedia)
   // fonction qui ajoute au DOM le formulaire de contact
   showModal(myPhotographer)
-}
-
-// fonction qui ajoute au DOM toutes les infos du photographe
-function showPhotographer(photographer) {
-  document.querySelector('.photographer').innerHTML = `
-    <section class='photographer__info'>
-        <h1 class='photographer__info__name'>${photographer.name}</h1>
-        <p class='photographer__info__city'>${photographer.city}, ${photographer.country}</p>
-        <p class='photographer__info__tagline'>${photographer.tagline}</p>
-    </section>
-    <button class='btn' id='contactForm' aria-label='Contact me ${photographer.name}'>Contactez-moi</button>
-    <div class='hero__photograph__link__container'>
-        <img src='${photographer.portrait}' class='hero__photograph__link__container__img' alt='${photographer.name}'>
-    </div>
-  `
 }
 
 // fonction qui ajoute au DOM tous les médias du photographe
@@ -115,12 +75,13 @@ function showMedia(medias) {
       return () => {
         showLightbox(medias, index)
         hideAll.forEach((hideAll) => {
-          hideAll.style.display = 'none'
+          hideAll.classList.add('inactive')
         })
       }
     }
 
     let img
+    const index = medias.indexOf(photo)
     if (photo.video) {
       const video = document.createElement('video')
       const source = document.createElement('source')
@@ -128,18 +89,15 @@ function showMedia(medias) {
       source.setAttribute('src', `${photo.video}`)
       source.setAttribute('type', 'video/mp4')
       source.setAttribute('tabindex', 0)
+      source.setAttribute('alt', `${photo.title}`)
       video.appendChild(source)
       divGalleryContain.appendChild(video)
       video.addEventListener('click', () => {
-        const index = medias.indexOf(photo)
-        console.log('Video Clicked - Index:', index)
         createClickHandler(index)()
       })
       // Ouvrir la lightbox avec la touche enter
       video.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-          const index = medias.indexOf(photo)
-          console.log('Image Clicked - Index:', index)
           createClickHandler(index)()
         }
       })
@@ -148,16 +106,13 @@ function showMedia(medias) {
       img.className = 'gallery__photo__card__container__img'
       img.setAttribute('src', `${photo.image}`)
       img.setAttribute('tabindex', 0)
+      img.setAttribute('alt', `${photo.title}`)
       divGalleryContain.appendChild(img)
       img.addEventListener('click', () => {
-        const index = medias.indexOf(photo)
-        console.log('Image Clicked - Index:', index)
         createClickHandler(index)()
       })
       img.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-          const index = medias.indexOf(photo)
-          console.log('Image Clicked - Index:', index)
           createClickHandler(index)()
         }
       })
@@ -184,6 +139,7 @@ function showMedia(medias) {
 
     const iGalleryHeart = document.createElement('i')
     iGalleryHeart.className = 'gallery__photo__card__info__like__heart fa-regular fa-heart'
+    iGalleryHeart.setAttribute('aria-label', 'Bouton likes')
     iGalleryHeart.setAttribute('tabindex', 0)
 
     iGalleryHeart.addEventListener('click', () => {
@@ -241,6 +197,36 @@ function showMedia(medias) {
   }
 }
 
+// Fonction de tri
+function showSortMedia(myMedia) {
+  // créer les fonctions de tri
+  document.getElementById('sortSelect').addEventListener('change', (event) => {
+    filterMedia(event.target.value)
+  })
+
+  // Fonction de tri des médias
+  function filterMedia(criteria) {
+
+    switch (criteria) {
+      case 'byTitle':
+        myMedia.sort((a, b) => a.title.localeCompare(b.title))
+        break
+      case 'byPopularity':
+        myMedia.sort((a, b) => b.likes - a.likes)
+        break
+      case 'byDate':
+        myMedia.sort((a, b) => new Date(b.date) - new Date(a.date))
+        break
+      default:
+        // Par défaut, utilise le tri par titre
+        myMedia.sort((a, b) => a.title.localeCompare(b.title))
+    }
+    // Affiche les médias triés
+    showMedia(myMedia)
+  }
+  filterMedia('byPopularity')
+}
+
 // Fonction qui affiche la lightbox
 function showLightbox(medias, index) {
   const lightBox = document.querySelector('.lightbox')
@@ -253,12 +239,16 @@ function showLightbox(medias, index) {
   const nextImg = document.createElement('i')
   const lightboxInfo = document.createElement('p')
 
-  lightBox.style.display = 'flex'
+  lightBox.classList.add('active')
 
   closeLightbox.className = 'lightbox__close fa-solid fa-xmark'
+  closeLightbox.setAttribute('aria-label', 'Close dialog')
   nextImg.className = 'lightbox__right fa-solid fa-chevron-right'
+  nextImg.setAttribute('aria-label', 'Next image')
   previousImg.className = 'lightbox__left fa-solid fa-chevron-left'
+  previousImg.setAttribute('aria-label', 'Previous image')
   divLightboxContain.className = 'lightbox__container'
+  divLightboxContain.setAttribute('aria-label', 'image closeup view')
   lightboxInfo.className = 'lightbox__title'
 
   lightBox.appendChild(closeLightbox)
@@ -280,7 +270,7 @@ function showLightbox(medias, index) {
   })
   // Faire défiler les médias avec les touches du clavier flèche droite flèche gauche
   document.addEventListener('keydown', (event) => {
-    if (lightBox.style.display === 'flex') {
+    if (lightBox.classList.contains('active')) {
       if (event.key === 'ArrowLeft') {
         // Défiler vers la gauche
         currentIndex = (currentIndex - 1 + medias.length) % medias.length
@@ -304,7 +294,8 @@ function showLightbox(medias, index) {
       sourceLightbox.setAttribute('src', currentPhoto.video)
       sourceLightbox.setAttribute('type', 'video/mp4')
       videoLightbox.setAttribute('controls', 'true')
-      videoLightbox.setAttribute('tabindex', '0')
+      videoLightbox.setAttribute('tabindex', 0)
+      videoLightbox.setAttribute('alt', `${currentPhoto.title}`)
       videoLightbox.appendChild(sourceLightbox)
       divLightboxContain.innerHTML = ''
       divLightboxContain.appendChild(videoLightbox)
@@ -314,6 +305,7 @@ function showLightbox(medias, index) {
       const imgLightbox = document.createElement('img')
       imgLightbox.className = 'lightbox__container__img'
       imgLightbox.setAttribute('src', currentPhoto.image)
+      imgLightbox.setAttribute('alt', `${currentPhoto.title}`)
       imgLightbox.setAttribute('tabindex', 0)
       divLightboxContain.innerHTML = ''
       divLightboxContain.appendChild(imgLightbox)
@@ -321,168 +313,18 @@ function showLightbox(medias, index) {
   }
 
   closeLightbox.addEventListener('click', () => {
-    lightBox.style.display = 'none'
+    lightBox.classList.remove('active')
     hideAll.forEach((hideAll) => {
-      hideAll.style.display = ''
+      hideAll.classList.remove('inactive')
     })
   })
   // Fermer la lightbox avec echap
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && lightBox.style.display === 'flex') {
-      lightBox.style.display = 'none'
+    if (event.key === 'Escape' && lightBox.classList.contains('active')) {
+      lightBox.classList.remove('active')
       hideAll.forEach((hideAll) => {
-        hideAll.style.display = ''
+        hideAll.classList.remove('inactive')
       })
-    }
-  })
-}
-
-// fonction qui ajoute au DOM le compteur de like total en bas à droite de la page
-function showCounter() {
-  document.querySelector('.counter').innerHTML = `
-  <div class='counter__text'>
-    <p class='counter__text__number'>${somme}</p>
-    <i class='counter__text__heart fa-solid fa-heart'></i>
-  </div>
-  `
-}
-
-// fonction qui ajoute au DOM le tarif journalier du photographe en bas à droite de la page
-function showPrice(price) {
-  const myPrice = price
-  document.querySelector('.price').innerHTML = `
-  <p class='price__day'>${myPrice.price} €/jour</p>
-  `
-}
-
-function showModal(photographer) {
-
-  //pour fermer la modal au click en dehors, addlistener sur la div du fond gris
-// DOM Elements
-  const messagePhotographer = document.getElementById('message-id')
-  // Sélectionner le bouton d'ouverture
-  const modalBtn = document.getElementById('contactForm')
-  // Sélectionner la balise qui contient la modale
-  const modalbg = document.querySelector('.bground')
-  // Sélectionner le bouton de fermeture
-  const closeModalBg = document.querySelector('.close')
-  // Sélectionner le formulaire
-  let form = document.querySelector('form')
-
-  // Rendre la modal accessible au clavier
-  // Ouvrir avec enter
-  document.getElementById('contactForm').addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault()
-      launchModal()
-    }
-  })
-  // Fermer avec echap
-  document.getElementById('contactForm').addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modalbg.style.display === 'block') {
-      modalbg.style.display = 'none'
-    }
-  })
-// launch modal event
-  modalBtn.addEventListener('click', launchModal)
-//forEach sert à boucler dans un tableau, boucle infinie qu'on ne peut pas arrêter
-
-// launch modal form
-  function launchModal() {
-    modalbg.style.display = 'block'
-  }
-
-// Première étape : commencer par fermer la popup en utilisant un display none
-// et dire à ma function d'écouter au click
-// Ajouter un écouteur d'événement au click
-  closeModalBg.addEventListener('click', () => {
-    // Fermez la modale en changeant son style display à 'none'
-    modalbg.style.display = 'none'
-  })
-
-  messagePhotographer.textContent = `${photographer.name}`
-
-// Deuxième étape : récupérer les input getElementById
-// ajouter des écouteurs click, change, input(réagit dès qu'on tape quelquechose),
-// submit(sans recharger la page)
-// récupérer les valeurs de ce qu'on tape dans les champs console.log(   .value)
-// pour y ajouter des vérifications
-  form.addEventListener('submit', (event) => {
-    event.preventDefault()
-    // Récupérer, écouter et vérifier l'entrée du Prénom
-    let baliseFirstName = document.getElementById('first')
-    let first = baliseFirstName.value
-
-    function validName(name) {
-      return name.length >= 2
-    }
-
-    if (validName(first)) {
-      console.log('Le prénom est valide.')
-    } else {
-      console.error('Veuillez saisir au moins 2 caractères.')
-    }
-
-// Récupérer, écouter et vérifier l'entrée du Nom
-    let baliseLastName = document.getElementById('last')
-    let last = baliseLastName.value
-
-    if (validName(last)) {
-      console.log('Le nom est valide.')
-    } else {
-      console.error('Veuillez saisir au moins 2 caractères.')
-    }
-
-    // Récupérer, écouter et vérifier l'entrée de l'Email
-    let baliseEmail = document.getElementById('email')
-    let email = baliseEmail.value
-
-    function validEmail(email) {
-      let emailRegExp = new RegExp('[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+')
-      if (emailRegExp.test(email)) {
-        return true
-      }
-      return false
-    }
-
-    if (validEmail(email)) {
-      console.log('L\'e-mail est valide.')
-    } else {
-      console.error('L\'adresse e-mail est invalide.')
-    }
-
-    let baliseMessage = document.getElementById('message')
-    let message = baliseMessage.value
-
-    function validMessage(message) {
-      return message.length >= 2
-    }
-
-    if (validMessage(message)) {
-      console.log('Merci pour votre message')
-    } else {
-      console.error('Veuillez saisir votre message')
-    }
-    // Vérifie si tous les champs sont valides
-    if (
-      validName(first)
-      && validName(last)
-      && validEmail(email)
-      && validMessage(message)
-    ) {
-      console.log('Prénom : ', baliseFirstName.value)
-      console.log('Nom : ', baliseLastName.value)
-      console.log('Email : ', baliseEmail.value)
-      console.log('Message : ', baliseMessage.value)
-
-      form.reset()
-      form.style.display = 'none'
-      modalbg.style.display = 'none'
-      form.style.display = 'block'
-      console.log('Votre message a été envoyé')
-
-    } else {
-      console.log('Certains champs ne sont pas valides')
     }
   })
 }

@@ -12,8 +12,8 @@
 /*64px*/
 /*24px*/
 /*18px*/
-.hide {
-  display: block;
+.hide.inactive {
+  display: none;
 }
 
 .photographer {
@@ -118,6 +118,9 @@
   background-color: #FFFFFF;
   width: 100%;
   height: 100%;
+}
+.lightbox.active {
+  display: flex;
 }
 .lightbox__container {
   align-self: center;

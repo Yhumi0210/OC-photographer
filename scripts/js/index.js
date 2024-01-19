@@ -16,7 +16,7 @@ async function fetchAndDisplayPhotographers() {
 
     const portraitDiv = document.createElement('div')
     portraitDiv.className += 'hero__photograph__link__container'
-    portraitDiv.innerHTML = `<img src='${photographer.portrait}' class='hero__photograph__link__container__img' alt=''/>`
+    portraitDiv.innerHTML = `<img src='${photographer.portrait}' class='hero__photograph__link__container__img' alt='${photographer.name}'/>`
 
     const nameTitle = document.createElement('h2')
     nameTitle.textContent = photographer.name
