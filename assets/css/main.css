@@ -374,6 +374,7 @@ h1 {
   width: 9rem;
   height: 9rem;
   position: relative;
+  box-shadow: 3px 2px 10px #757575;
 }
 .hero__photograph__link__container__img {
   position: absolute;

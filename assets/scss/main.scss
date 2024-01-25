@@ -116,6 +116,7 @@ h1 {
         width: 9rem;
         height: 9rem;
         position: relative;
+        box-shadow: 3px 2px 10px $grey;
 
         &__img {
           position: absolute;
