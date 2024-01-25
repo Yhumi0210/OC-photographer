@@ -1,6 +1,6 @@
 // ctrl alt L pour formater
 // ctrl alt maj J pour sélectionner les caractères identiques
-import { showPhotographer, showPrice, showCounter, showModal } from "./sort.js"
+import { showPhotographer, showPrice, showCounter, showModal } from './sort.js'
 
 // récupérer l'id du photographe et afficher ses infos
 const paramSearch = window.location.search
