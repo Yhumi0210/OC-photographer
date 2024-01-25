@@ -1,5 +1,3 @@
-//import { filterMedia } from './sort'
-
 // fonction qui ajoute au DOM toutes les infos du photographe
 export function showPhotographer(photographer) {
   document.querySelector('.photographer').innerHTML = `
