@@ -12,13 +12,14 @@ module.exports = {
             'files': [
                 '.eslintrc.{js,cjs}'
             ],
-            'parserOptions': {
-                'sourceType': 'script'
-            }
+            // 'parserOptions': {
+            //     'sourceType': 'script'
+            // }
         }
     ],
     'parserOptions': {
-        'ecmaVersion': 'latest'
+        'ecmaVersion': 'latest',
+        'sourceType': 'module'
     },
     'rules': {
         'semi': ['error', 'never'],

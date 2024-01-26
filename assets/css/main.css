@@ -247,8 +247,8 @@
   top: 1.5rem;
   opacity: 1;
   cursor: pointer;
-  font-size: 2.5rem;
-  color: #FFFFFF;
+  width: 2.5rem;
+  fill: #FFFFFF;
 }
 .bground .modal-body .message__photographer {
   font-family: "DM Sans";
