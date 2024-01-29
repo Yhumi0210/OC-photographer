@@ -128,32 +128,6 @@ export function showLightbox(medias, index) {
     lightBox.appendChild(divLightboxContain)
     lightBox.appendChild(lightboxInfo)
 
-    displayImage(currentIndex)
-
-    nextImg.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % medias.length
-        displayImage(currentIndex)
-    })
-
-    previousImg.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + medias.length) % medias.length
-        displayImage(currentIndex)
-    })
-    // Faire défiler les médias avec les touches du clavier flèche droite flèche gauche
-    document.addEventListener('keydown', (event) => {
-        if (lightBox.classList.contains('active')) {
-            if (event.key === 'ArrowLeft') {
-                // Défiler vers la gauche
-                currentIndex = (currentIndex - 1 + medias.length) % medias.length
-                displayImage(currentIndex)
-            } else if (event.key === 'ArrowRight') {
-                // Défiler vers la droite
-                currentIndex = (currentIndex + 1) % medias.length
-                displayImage(currentIndex)
-            }
-        }
-    })
-
     function displayImage(index) {
         const currentPhoto = medias[index]
         lightboxInfo.textContent = `${currentPhoto.title}`
@@ -182,6 +156,32 @@ export function showLightbox(medias, index) {
             divLightboxContain.appendChild(imgLightbox)
         }
     }
+
+    displayImage(currentIndex)
+
+    nextImg.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % medias.length
+        displayImage(currentIndex)
+    })
+
+    previousImg.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + medias.length) % medias.length
+        displayImage(currentIndex)
+    })
+    // Faire défiler les médias avec les touches du clavier flèche droite flèche gauche
+    document.addEventListener('keydown', (event) => {
+        if (lightBox.classList.contains('active')) {
+            if (event.key === 'ArrowLeft') {
+                // Défiler vers la gauche
+                currentIndex = (currentIndex - 1 + medias.length) % medias.length
+                displayImage(currentIndex)
+            } else if (event.key === 'ArrowRight') {
+                // Défiler vers la droite
+                currentIndex = (currentIndex + 1) % medias.length
+                displayImage(currentIndex)
+            }
+        }
+    })
 
     closeLightbox.addEventListener('click', () => {
         lightBox.classList.remove('active')

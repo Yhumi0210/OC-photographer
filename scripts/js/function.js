@@ -73,10 +73,6 @@ export function showModal(photographer) {
     // Fermer la modale en changeant son style display à 'none'
     modalbg.style.display = 'none'
   })
-  // Fermer la modale en cliquant sur le fond gris et par sur la croix
-  modalbg.addEventListener('click', () => {
-    modalbg.style.display = 'none'
-  })
 
   messagePhotographer.textContent = `${photographer.name}`
 

@@ -234,6 +234,7 @@
 .bground .modal-body {
   margin: 5% auto;
   width: 100%;
+  z-index: 1000;
   max-width: 34rem;
   background: #DB8876;
   overflow: hidden;
