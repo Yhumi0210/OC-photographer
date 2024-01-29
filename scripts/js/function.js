@@ -1,5 +1,6 @@
-// fonction qui ajoute au DOM toutes les infos du photographe
+// Fonction pour afficher toutes les informations du photographe dans le DOM
 export function showPhotographer(photographer) {
+  // Sélection de l'élément avec la classe 'photographer' et ajout du contenu HTML
   document.querySelector('.photographer').innerHTML = `
     <section class='photographer__info'>
         <h1 class='photographer__info__name'>${photographer.name}</h1>
@@ -13,15 +14,17 @@ export function showPhotographer(photographer) {
   `
 }
 
-// fonction qui ajoute au DOM le tarif journalier du photographe en bas à droite de la page
+// Fonction pour afficher le tarif journalier du photographe dans le DOM
 export function showPrice(price) {
+  // Sélection de l'élément avec la classe 'price' et ajout du contenu HTML
   const myPrice = price
   document.querySelector('.price').innerHTML = `
   <p class='price__day'>${myPrice.price} €/jour</p>
   `
 }
-// fonction qui ajoute au DOM le compteur de like total en bas à droite de la page
+// Fonction pour afficher le compteur de likes total dans le DOM
 export function showCounter(somme) {
+  // Sélection de l'élément avec la classe 'counter' et ajout du contenu HTML
   document.querySelector('.counter').innerHTML = `
   <div class='counter__text'>
     <p class='counter__text__number'>${somme}</p>
@@ -30,9 +33,8 @@ export function showCounter(somme) {
   `
 }
 
+// Fonction pour afficher la modal de contact dans le DOM
 export function showModal(photographer) {
-
-  //pour fermer la modal au click en dehors, addlistener sur la div du fond gris
 // DOM Elements
   const messagePhotographer = document.getElementById('message-id')
   // Sélectionner le bouton d'ouverture
@@ -60,28 +62,24 @@ export function showModal(photographer) {
   })
 // launch modal event
   modalBtn.addEventListener('click', launchModal)
-//forEach sert à boucler dans un tableau, boucle infinie qu'on ne peut pas arrêter
 
 // launch modal form
   function launchModal() {
     modalbg.style.display = 'block'
   }
 
-// Première étape : commencer par fermer la popup en utilisant un display none
-// et dire à ma function d'écouter au click
 // Ajouter un écouteur d'événement au click
   closeModalBg.addEventListener('click', () => {
-    // Fermez la modale en changeant son style display à 'none'
+    // Fermer la modale en changeant son style display à 'none'
+    modalbg.style.display = 'none'
+  })
+  // Fermer la modale en cliquant sur le fond gris et par sur la croix
+  modalbg.addEventListener('click', () => {
     modalbg.style.display = 'none'
   })
 
   messagePhotographer.textContent = `${photographer.name}`
 
-// Deuxième étape : récupérer les input getElementById
-// ajouter des écouteurs click, change, input(réagit dès qu'on tape quelquechose),
-// submit(sans recharger la page)
-// récupérer les valeurs de ce qu'on tape dans les champs console.log(   .value)
-// pour y ajouter des vérifications
   form.addEventListener('submit', (event) => {
     event.preventDefault()
     // Récupérer, écouter et vérifier l'entrée du Prénom
