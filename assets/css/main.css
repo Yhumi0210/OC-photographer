@@ -234,7 +234,6 @@
 .bground .modal-body {
   margin: 5% auto;
   width: 100%;
-  z-index: 1000;
   max-width: 34rem;
   background: #DB8876;
   overflow: hidden;
@@ -258,6 +257,9 @@
 }
 .bground .modal-body .formDataRemove {
   margin-top: 1rem;
+}
+.bground .modal-body .formDataRemove .formDataRemove:focus {
+  outline: 2px solid blue;
 }
 .bground .modal-body .formDataRemove label {
   font-family: "DM Sans";

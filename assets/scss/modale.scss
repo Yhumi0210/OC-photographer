@@ -52,7 +52,6 @@ $slogan-font-size: 1.125rem; /*18px*/
   .modal-body {
     margin: 5% auto;
     width: 100%;
-    z-index: 1000;
     max-width: 34rem;
     background: $pink;
     overflow: hidden;
@@ -78,6 +77,9 @@ $slogan-font-size: 1.125rem; /*18px*/
 
     .formDataRemove {
       margin-top: 1rem;
+      .formDataRemove:focus {
+        outline: 2px solid blue;
+      }
 
       label {
         font-family: $body-font;
