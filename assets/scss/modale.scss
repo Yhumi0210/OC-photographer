@@ -77,9 +77,6 @@ $slogan-font-size: 1.125rem; /*18px*/
 
     .formDataRemove {
       margin-top: 1rem;
-      .formDataRemove:focus {
-        outline: 2px solid blue;
-      }
 
       label {
         font-family: $body-font;

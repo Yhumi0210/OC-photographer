@@ -258,9 +258,6 @@
 .bground .modal-body .formDataRemove {
   margin-top: 1rem;
 }
-.bground .modal-body .formDataRemove .formDataRemove:focus {
-  outline: 2px solid blue;
-}
 .bground .modal-body .formDataRemove label {
   font-family: "DM Sans";
   font-size: 2rem;
